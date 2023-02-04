@@ -19,9 +19,9 @@ function App() {
       />
       <PokemonFusionForm
         pokemonHeadId={pokemonHeadId}
-        onPokemonHeadChanged={setPokemonHeadId}
+        onSelectHead={setPokemonHeadId}
         pokemonBodyId={pokemonBodyId}
-        onPokemonBodyChanged={setPokemonBodyId}
+        onSelectBody={setPokemonBodyId}
         onSwapPokemon={swapPokemonHandler}
       />
     </div>

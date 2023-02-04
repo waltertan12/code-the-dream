@@ -5,12 +5,12 @@ const PokemonFusionForm = (props) => {
     <div className="pokemon-fusion-form">
       <PokemonSelectForm
         pokemonId={props.pokemonHeadId}
-        onPokemonSelected={props.onPokemonHeadChanged}
+        onSelectPokemon={props.onSelectHead}
       />
       <button onClick={props.onSwapPokemon}>🔁</button>
       <PokemonSelectForm
         pokemonId={props.pokemonBodyId}
-        onPokemonSelected={props.onPokemonBodyChanged}
+        onSelectPokemon={props.onSelectBody}
       />
     </div>
   );

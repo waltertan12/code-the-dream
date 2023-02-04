@@ -1,8 +1,8 @@
 import pokemonList from './data/pokemonList.json';
 
 const PokemonSelectForm = (props) => {
-  const onPokemonSelected = (event) => {
-    props.onPokemonSelected(event.target.value);
+  const onSelectPokemon = (event) => {
+    props.onSelectPokemon(event.target.value);
   };
 
   return (
@@ -14,7 +14,7 @@ const PokemonSelectForm = (props) => {
         height="80"
       />
       <div className="pokemon-select-input">
-        <select onChange={onPokemonSelected}>
+        <select onChange={onSelectPokemon}>
           {pokemonList.map((pokemon) => {
             return (
               <option key={pokemon.id} value={pokemon.id}>
