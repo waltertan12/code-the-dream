@@ -1,10 +1,19 @@
-const PokefusionResult = () => {
+import pokemonList from './data/pokemonList.json';
+import { getPokefusionImageUrl, getPokefusionName } from './util';
+
+const PokefusionResult = (props) => {
+  const pokemonHead = pokemonList.find(
+    (pokemon) => pokemon.id === props.pokemonHeadId,
+  );
+  const pokemonBody = pokemonList.find(
+    (pokemon) => pokemon.id === props.pokemonBodyId,
+  );
   return (
     <div className="pokefusion-result">
       <div>
-        <h2>Bulbtoise</h2>
+        <h2>{getPokefusionName(pokemonHead, pokemonBody)}</h2>
         <img
-          src="https://images.alexonsager.net/pokemon/fused/9/9.1.png"
+          src={getPokefusionImageUrl(props.pokemonHeadId, props.pokemonBodyId)}
           alt="Bulbtoise"
         />
       </div>
