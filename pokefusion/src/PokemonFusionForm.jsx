@@ -1,11 +1,17 @@
 import PokemonSelectForm from './PokemonSelectForm';
 
-const PokemonFusionForm = () => {
+const PokemonFusionForm = (props) => {
   return (
     <div className="pokemon-fusion-form">
-      <PokemonSelectForm />
+      <PokemonSelectForm
+        pokemonId={props.pokemonHeadId}
+        onPokemonSelected={props.onPokemonHeadChanged}
+      />
       <button>🔁</button>
-      <PokemonSelectForm />
+      <PokemonSelectForm
+        pokemonId={props.pokemonBodyId}
+        onPokemonSelected={props.onPokemonBodyChanged}
+      />
     </div>
   );
 };

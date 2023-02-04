@@ -1,10 +1,11 @@
 import PokefusionResult from './PokefusionResult';
 import PokemonFusionForm from './PokemonFusionForm';
 import { getPokemonImageUrl, getPokefusionImageUrl } from './util';
+import { useState } from 'react';
 
 function App() {
-  const pokemonHeadId = '1';
-  const pokemonBodyId = '9';
+  const [pokemonHeadId, setPokemonHeadId] = useState('1');
+  const [pokemonBodyId, setPokemonBodyId] = useState('9');
 
   return (
     <div className="app">
@@ -13,7 +14,12 @@ function App() {
         pokemonHeadId={pokemonHeadId}
         pokemonBodyId={pokemonBodyId}
       />
-      <PokemonFusionForm />
+      <PokemonFusionForm
+        pokemonHeadId={pokemonHeadId}
+        onPokemonHeadChanged={setPokemonHeadId}
+        pokemonBodyId={pokemonBodyId}
+        onPokemonBodyChanged={setPokemonBodyId}
+      />
     </div>
   );
 }
