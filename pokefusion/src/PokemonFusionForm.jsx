@@ -7,7 +7,7 @@ const PokemonFusionForm = (props) => {
         pokemonId={props.pokemonHeadId}
         onPokemonSelected={props.onPokemonHeadChanged}
       />
-      <button>🔁</button>
+      <button onClick={props.onSwapPokemon}>🔁</button>
       <PokemonSelectForm
         pokemonId={props.pokemonBodyId}
         onPokemonSelected={props.onPokemonBodyChanged}

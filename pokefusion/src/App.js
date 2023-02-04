@@ -6,6 +6,9 @@ import { useState } from 'react';
 function App() {
   const [pokemonHeadId, setPokemonHeadId] = useState('1');
   const [pokemonBodyId, setPokemonBodyId] = useState('9');
+  const swapPokemonHandler = () => {
+    console.log('TODO: Swap head and body id');
+  };
 
   return (
     <div className="app">
@@ -19,6 +22,7 @@ function App() {
         onPokemonHeadChanged={setPokemonHeadId}
         pokemonBodyId={pokemonBodyId}
         onPokemonBodyChanged={setPokemonBodyId}
+        onSwapPokemon={swapPokemonHandler}
       />
     </div>
   );
