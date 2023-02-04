@@ -14,3 +14,7 @@ export const getPokemonImageUrl = (pokemonId) =>
  */
 export const getPokefusionImageUrl = (headId, bodyId) =>
   `https://images.alexonsager.net/pokemon/fused/${bodyId}/${bodyId}.${headId}.png`;
+
+export const getPokefusionName = (pokemonHead, pokemonBody) => {
+  return pokemonHead.prefix + pokemonBody.suffix;
+};
