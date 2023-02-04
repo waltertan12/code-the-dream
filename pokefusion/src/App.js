@@ -1,6 +1,5 @@
 import PokefusionResult from './PokefusionResult';
 import PokemonFusionForm from './PokemonFusionForm';
-import pokemon from './data/pokemon.json';
 import { getPokemonImageUrl, getPokefusionImageUrl } from './util';
 
 function App() {
