@@ -1,29 +1,26 @@
 import pokemonList from './data/pokemonList.json';
+import { getPokemon, getPokemonImageUrl } from './util';
 
 const PokemonSelectForm = (props) => {
-  const onSelectPokemon = (event) => {
-    props.onSelectPokemon(event.target.value);
-  };
+  const onSelectPokemon = (event) => props.onSelectPokemon(event.target.value);
 
   return (
     <div className="pokemon-select-form">
       <img
-        src={`https://images.alexonsager.net/pokemon/${props.pokemonId}.png`}
-        alt="Blastoise"
+        src={getPokemonImageUrl(props.pokemonId)}
+        alt={getPokemon(props.pokemonId).name}
         width="80"
         height="80"
       />
       <div className="pokemon-select-input">
-        <select onChange={onSelectPokemon}>
-          {pokemonList.map((pokemon) => {
-            return (
-              <option key={pokemon.id} value={pokemon.id}>
-                {pokemon.name}
-              </option>
-            );
-          })}
+        <select onChange={onSelectPokemon} value={props.pokemonId}>
+          {pokemonList.map((pokemon) => (
+            <option key={pokemon.id} value={pokemon.id}>
+              {pokemon.name}
+            </option>
+          ))}
         </select>
-        <button>🔀</button>
+        <button onClick={props.onRandomizePokemon}>🔀</button>
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+import pokemonList from './data/pokemonList.json';
+
 /**
  *
  * @param {String} pokemonId
@@ -15,6 +17,28 @@ export const getPokemonImageUrl = (pokemonId) =>
 export const getPokefusionImageUrl = (headId, bodyId) =>
   `https://images.alexonsager.net/pokemon/fused/${bodyId}/${bodyId}.${headId}.png`;
 
-export const getPokefusionName = (pokemonHead, pokemonBody) => {
-  return pokemonHead.prefix + pokemonBody.suffix;
+/**
+ *
+ * @param {Object} pokemonHead
+ * @param {Object} pokemonBody
+ * @returns The fused pokemon name
+ */
+export const getPokefusionName = (pokemonHead, pokemonBody) =>
+  pokemonHead.prefix + pokemonBody.suffix;
+
+/**
+ *
+ * @param {String} pokemonId
+ * @returns
+ */
+export const getPokemon = (pokemonId) => {
+  const pokemon = pokemonList.find((pokemon) => pokemon.id === pokemonId);
+  if (!pokemon) {
+    throw new Error(`Unable to find pokemon with id ${pokemonId}`);
+  }
+
+  return pokemon;
 };
+
+export const getRandomPokemon = () =>
+  pokemonList[Math.floor(Math.random() * pokemonList.length)];

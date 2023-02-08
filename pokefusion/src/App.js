@@ -1,14 +1,17 @@
 import PokefusionResult from './PokefusionResult';
 import PokemonFusionForm from './PokemonFusionForm';
-import { getPokemonImageUrl, getPokefusionImageUrl } from './util';
 import { useState } from 'react';
+import { getRandomPokemon } from './util';
 
 function App() {
-  const [pokemonHeadId, setPokemonHeadId] = useState('1');
-  const [pokemonBodyId, setPokemonBodyId] = useState('9');
+  const [pokemonHeadId, setPokemonHeadId] = useState(getRandomPokemon().id);
+  const [pokemonBodyId, setPokemonBodyId] = useState(getRandomPokemon().id);
   const swapPokemonHandler = () => {
-    console.log('TODO: Swap head and body id');
+    setPokemonHeadId(pokemonBodyId);
+    setPokemonBodyId(pokemonHeadId);
   };
+  const randomizeHeadHandler = () => setPokemonHeadId(getRandomPokemon().id);
+  const randomizeBodyHandler = () => setPokemonBodyId(getRandomPokemon().id);
 
   return (
     <div className="app">
@@ -20,8 +23,10 @@ function App() {
       <PokemonFusionForm
         pokemonHeadId={pokemonHeadId}
         onSelectHead={setPokemonHeadId}
+        onRandomizeHead={randomizeHeadHandler}
         pokemonBodyId={pokemonBodyId}
         onSelectBody={setPokemonBodyId}
+        onRandomizeBody={randomizeBodyHandler}
         onSwapPokemon={swapPokemonHandler}
       />
     </div>
