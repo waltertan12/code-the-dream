@@ -1,3 +1,4 @@
+import React from "react";
 const DivComponent = () => {
   return (
     <div>
@@ -13,6 +14,15 @@ const FragmentComponent = () => {
       <li>Item A</li>
       <li>Item B</li>
     </>
+  );
+};
+
+const AlsoFragmentComponent = () => {
+  return (
+    <React.Fragment>
+      <li>Item A</li>
+      <li>Item B</li>
+    </React.Fragment>
   );
 };
 
@@ -33,6 +43,12 @@ const FragmentDemo = () => {
         <h2>Fragment Component</h2>
         <ul>
           <FragmentComponent />
+        </ul>
+      </div>
+      <div>
+        <h2>Also Fragment Component</h2>
+        <ul>
+          <AlsoFragmentComponent />
         </ul>
       </div>
       <div>
