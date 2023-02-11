@@ -53,7 +53,7 @@ function App() {
         {currentPage === PAGES.EFFECTS_ONLINE_OFFLINE ? (
           <OnlineOffline />
         ) : null}
-        {currentPage === PAGES.EFFECTS_ONLINE_OFFLINE ? <MouseTrail /> : null}
+        {currentPage === PAGES.EFFECTS_MOUSE_TRAIL ? <MouseTrail /> : null}
       </ul>
     </div>
   );

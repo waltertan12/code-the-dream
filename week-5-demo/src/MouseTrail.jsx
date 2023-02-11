@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 const usePointerPosition = () => {
   // TODO: Implement pointer position
+  return { x: 0, y: 0 };
 };
 
 const useDelayedPosition = (position, delay) => {
