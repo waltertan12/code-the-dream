@@ -5,14 +5,14 @@ const getRandomNumber = (min, max) =>
 
 const getClue = (number, target) => {
   if (number === target) {
-    return <p>☺️</p>;
+    return <>☺️</>;
   }
 
   if (number > target) {
-    return <p>Too high</p>;
+    return <>Too high</>;
   }
 
-  return <p>Too low</p>;
+  return <>Too low</>;
 };
 
 const NumberGuesser = ({ min = 1, max = 100 }) => {
@@ -23,15 +23,29 @@ const NumberGuesser = ({ min = 1, max = 100 }) => {
 
   const handleGuessChange = (event) => {
     event.preventDefault();
-    console.log("TODO: Implement guess change");
+    setCurrentGuess(Number(event.target.value));
   };
   const handleGuess = (event) => {
     event.preventDefault();
-    console.log("TODO: Implement guessing");
+    setGuesses(guesses.concat(currentGuess));
+    setHasWon(targetNumber === currentGuess);
   };
   const handleReset = (event) => {
     event.preventDefault();
-    console.log("TODO: Implement reset");
+    setHasWon(false);
+    setTargetNumber(getRandomNumber(min, max));
+    setCurrentGuess(getRandomNumber(min, max));
+    setGuesses([]);
+  };
+  // Using <form /> submissions
+  const handleGuessSubmit = (event) => {
+    event.preventDefault();
+    const guess = Number(event.target.elements["guess"].value);
+    setGuesses(guesses.concat(guess));
+    setHasWon(targetNumber === guess);
+  };
+  const handleSubmitClick = (event) => {
+    console.log("Doesn't have access to the form values!!! 😱");
   };
 
   return (
@@ -51,6 +65,23 @@ const NumberGuesser = ({ min = 1, max = 100 }) => {
         <button onClick={handleGuess} disabled={hasWon}>
           Guess!
         </button>
+        {/* Using <form /> */}
+        <form onSubmit={handleGuessSubmit}>
+          <input
+            name="guess"
+            type="number"
+            min={min}
+            max={max}
+            disabled={hasWon}
+            defaultValue={currentGuess}
+          />
+          <input
+            type="submit"
+            value="Guess with <form />"
+            onClick={handleSubmitClick}
+            disabled={hasWon}
+          />
+        </form>
       </div>
       <div>
         <h3>Guesses</h3>
