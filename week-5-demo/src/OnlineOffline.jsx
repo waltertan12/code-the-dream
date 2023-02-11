@@ -1,20 +1,39 @@
 import { useEffect, useState } from "react";
 
 const useIsOnline = () => {
-  const [isOnline, setIsOnline] = useState(true);
+  // TODO: Implement online/offline hook
+  return navigator.onLine;
+};
 
-  // TODO: Implement online change
+const Online = () => {
+  const isOnline = useIsOnline();
+  if (!isOnline) {
+    return null;
+  }
 
-  return isOnline;
+  return <h2>Online: ☺️</h2>;
+};
+
+const Offline = () => {
+  const isOnline = useIsOnline();
+  if (isOnline) {
+    return null;
+  }
+  return (
+    <>
+      <h2>Offline: 😱</h2>
+      <p>You've lost interent connection</p>
+    </>
+  );
 };
 
 const OnlineOffline = () => {
-  const isOnline = useIsOnline();
-  if (isOnline) {
-    return <h2>Online: ☺️</h2>;
-  }
-
-  return <h2>Offline: 😱</h2>;
+  return (
+    <>
+      <Online />
+      <Offline />
+    </>
+  );
 };
 
 export default OnlineOffline;

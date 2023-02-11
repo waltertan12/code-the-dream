@@ -5,14 +5,14 @@ const getRandomNumber = (min, max) =>
 
 const getClue = (number, target) => {
   if (number === target) {
-    return "☺️";
+    return <p>☺️</p>;
   }
 
   if (number > target) {
-    return "Too high";
+    return <p>Too high</p>;
   }
 
-  return "Too low";
+  return <p>Too low</p>;
 };
 
 const NumberGuesser = ({ min = 1, max = 100 }) => {
