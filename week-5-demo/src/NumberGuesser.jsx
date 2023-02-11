@@ -24,21 +24,14 @@ const NumberGuesser = ({ min = 1, max = 100 }) => {
   const handleGuessChange = (event) => {
     event.preventDefault();
     console.log("TODO: Implement guess change");
-    setCurrentGuess(Number(event.target.value));
   };
   const handleGuess = (event) => {
     event.preventDefault();
     console.log("TODO: Implement guessing");
-    setGuesses(guesses.concat(currentGuess));
-    setHasWon(currentGuess === targetNumber);
   };
   const handleReset = (event) => {
     event.preventDefault();
     console.log("TODO: Implement reset");
-    setGuesses([]);
-    setCurrentGuess(getRandomNumber(min, max));
-    setTargetNumber(getRandomNumber(min, max));
-    setHasWon(false);
   };
 
   return (

@@ -3,22 +3,7 @@ import { useEffect, useState } from "react";
 const useIsOnline = () => {
   const [isOnline, setIsOnline] = useState(true);
 
-  useEffect(() => {
-    const handleIsOnline = () => {
-      console.log("Setting status to online");
-      setIsOnline(true);
-    };
-    const handleIsOffline = () => {
-      console.log("Setting status to offline");
-      setIsOnline(false);
-    };
-    window.addEventListener("online", handleIsOnline);
-    window.addEventListener("offline", handleIsOffline);
-    return () => {
-      window.removeEventListener("online", handleIsOnline);
-      window.removeEventListener("offline", handleIsOffline);
-    };
-  }, []);
+  // TODO: Implement online change
 
   return isOnline;
 };
