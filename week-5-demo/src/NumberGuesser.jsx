@@ -45,7 +45,11 @@ const NumberGuesser = ({ min = 1, max = 100 }) => {
     setHasWon(targetNumber === guess);
   };
   const handleSubmitClick = (event) => {
-    console.log("Doesn't have access to the form values!!! 😱");
+    // Can also find guess information by access the form
+    // event.preventDefault();
+    // const guess = Number(event.target.form.elements["guess"].value);
+    // setGuesses(guesses.concat(guess));
+    // setHasWon(targetNumber === guess);
   };
 
   return (
