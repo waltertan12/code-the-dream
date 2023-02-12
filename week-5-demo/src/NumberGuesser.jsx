@@ -45,7 +45,7 @@ const NumberGuesser = ({ min = 1, max = 100 }) => {
     setHasWon(targetNumber === guess);
   };
   const handleSubmitClick = (event) => {
-    // Can also find guess information by access the form
+    // Can also find guess information by accessing the form via event.target.form
     // event.preventDefault();
     // const guess = Number(event.target.form.elements["guess"].value);
     // setGuesses(guesses.concat(guess));
@@ -58,19 +58,26 @@ const NumberGuesser = ({ min = 1, max = 100 }) => {
         Can you guess the number between {min} and {max}?
       </h2>
       <div>
+        {/* This is a controlled component since the value is managed/controlled by state */}
         <input
           type="number"
           min={min}
           max={max}
-          onChange={handleGuessChange}
-          value={currentGuess}
+          onChange={
+            handleGuessChange /* this onChange handler updates component state */
+          }
+          value={
+            currentGuess /* this value is is provided by component state */
+          }
           disabled={hasWon}
         />
         <button onClick={handleGuess} disabled={hasWon}>
           Guess!
         </button>
         {/* Using <form /> */}
+        {/* This is an uncontrolled component: state is managed by the form/DOM */}
         <form onSubmit={handleGuessSubmit}>
+          {/* Notice there is no `value` or `onChange` prop on the input */}
           <input
             name="guess"
             type="number"
