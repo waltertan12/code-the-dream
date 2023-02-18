@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const Modal = ({ children, handleSubmit, onClose }) => {
   return (
@@ -11,7 +11,8 @@ const Modal = ({ children, handleSubmit, onClose }) => {
   );
 };
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit, autoFocus }) => {
+  const emailInputRef = useRef();
   const handleSubmit = (event) => {
     event.preventDefault();
     const loginData = {
@@ -20,6 +21,14 @@ const LoginForm = ({ onSubmit }) => {
     };
     onSubmit(loginData);
   };
+
+  useEffect(() => {
+    console.log({ autoFocus, emailInputRef });
+    if (autoFocus && emailInputRef.current) {
+      emailInputRef.current.focus();
+    }
+  }, [autoFocus, emailInputRef]);
+
   return (
     <>
       <h1>Login!</h1>
@@ -30,6 +39,7 @@ const LoginForm = ({ onSubmit }) => {
           name="email"
           placeholder="lmao@example.com"
           autocomplete="off"
+          ref={emailInputRef}
         />
         <label for="password">Password</label>
         <input type="password" name="password" />
@@ -89,7 +99,7 @@ const ModalApp = () => {
       <button onClick={handleShowSignupForm}>Sign up</button>
       {showLoginModal ? (
         <Modal onClose={() => setShowLoginModal(false)}>
-          <LoginForm onSubmit={() => setShowLoginModal(false)} />
+          <LoginForm onSubmit={() => setShowLoginModal(false)} autoFocus />
         </Modal>
       ) : null}
       {showSignupModal ? (
