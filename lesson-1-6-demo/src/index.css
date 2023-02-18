@@ -1,0 +1,44 @@
+.app {
+  margin-top: 1em;
+}
+
+.collapsible-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 1px solid #dcdcdc;
+  padding: 0 1em;
+  padding-bottom: 1em;
+}
+
+.collapsible-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-of-contents {
+  margin-bottom: 1em;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  background: #212121;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  border-radius: 5px;
+  border: 1px solid #dcdcdc;
+  padding: 1em;
+  overflow-y: scroll;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+}
