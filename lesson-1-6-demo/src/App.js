@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import CollapsibleContainerApp from "./CollapsibleContainer";
 import ModalApp from "./Modal";
 import ImperativeVsDeclarative from "./ImperativeVsDeclarative";
+import DuplicatingTodos from "./DuplicatingTodos";
 const PAGES = {
   IMPERATIVE_VS_DECLARATIVE: "Imperative vs Declarative",
   COLLAPSIBLE_CONTAINER: "Collapsible Container",
   MODAL: "Modal",
+  DUPLICATING_TODOS: "Duplicating Todos",
 };
 
 function App() {
@@ -42,6 +44,7 @@ function App() {
           <CollapsibleContainerApp />
         ) : null}
         {currentPage === PAGES.MODAL ? <ModalApp /> : null}
+        {currentPage === PAGES.DUPLICATING_TODOS ? <DuplicatingTodos /> : null}
       </div>
     </div>
   );
