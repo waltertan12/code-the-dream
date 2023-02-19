@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/code-the-dream/lesson-1-5-demo/static/js/main.9c19eeb3.js",
+    "static/js/787.9d6e0ac6.chunk.js": "/code-the-dream/lesson-1-5-demo/static/js/787.9d6e0ac6.chunk.js",
+    "index.html": "/code-the-dream/lesson-1-5-demo/index.html",
+    "main.9c19eeb3.js.map": "/code-the-dream/lesson-1-5-demo/static/js/main.9c19eeb3.js.map",
+    "787.9d6e0ac6.chunk.js.map": "/code-the-dream/lesson-1-5-demo/static/js/787.9d6e0ac6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.9c19eeb3.js"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/code-the-dream/pokefusion/static/css/main.897cc9de.css",
+    "main.js": "/code-the-dream/pokefusion/static/js/main.693cbb2a.js",
+    "static/js/787.9612bbaa.chunk.js": "/code-the-dream/pokefusion/static/js/787.9612bbaa.chunk.js",
+    "index.html": "/code-the-dream/pokefusion/index.html",
+    "main.897cc9de.css.map": "/code-the-dream/pokefusion/static/css/main.897cc9de.css.map",
+    "main.693cbb2a.js.map": "/code-the-dream/pokefusion/static/js/main.693cbb2a.js.map",
+    "787.9612bbaa.chunk.js.map": "/code-the-dream/pokefusion/static/js/787.9612bbaa.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.897cc9de.css",
+    "static/js/main.693cbb2a.js"
+  ]
+}
