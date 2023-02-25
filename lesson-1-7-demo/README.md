@@ -1,4 +1,4 @@
-# Week 6
+# Lesson 1.7
 
-- Imperative vs Declarative
-- Component Composition
+- Async requests / Promises
+- Reducers
