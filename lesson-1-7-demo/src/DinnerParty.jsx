@@ -26,54 +26,104 @@ const attendDinnerParty = ({
         reject({
           id: ++id,
           status: "🫣 + 🤢",
-          attended: false,
           timestamp: new Date(),
         });
       } else if (isSick && !isFlaky) {
         reject({
           id: ++id,
           status: "🤢",
-          attended: false,
           timestamp: new Date(),
         });
       } else if (!isSick && isFlaky) {
         reject({
           id: ++id,
           status: "🫣",
-          attended: false,
           timestamp: new Date(),
         });
       } else {
         resolve({
           id: ++id,
           status: "🥳",
-          attended: true,
           timeestamp: new Date(),
         });
       }
     }, timeout);
   });
 
+// DINNER_PARTY_INVITE_RECEIVED
+// DINNER_PARTY_INVITE_ACCEPTED
+// DINNER_PARTY_INVITE_REJECTED
+// HEALTH_CHANGED
+// FRIENDSHIP_LEVEL_CHANGED
+
+const initialReducerState = {
+  health: 0.5,
+  friendshipLevel: FRIENDSHIP_LEVELS.FRIEND.value,
+  isDeciding: false,
+  dinnerPartyResults: [],
+};
+
 const DinnerParty = () => {
   // TODO: Add state to manage form
+  const [health, setHealth] = useState(0.5);
+  const [friendshipLevel, setFriendshipLevel] = useState(
+    FRIENDSHIP_LEVELS.FRIEND.value
+  );
+  const [isDeciding, setIsDeciding] = useState(false);
+  const [dinnerPartyResults, setDinnerPartyResults] = useState([]);
+  const handleHealthChange = (event) => {
+    setHealth(Number(event.target.value));
+  };
+  const handleFriendshipLevelChange = (event) => {
+    setFriendshipLevel(Number(event.target.value));
+  };
+
+  const handleDinnerPartyInvite = () => {
+    console.log("Handling dinner party invite");
+    console.log({ health, friendshipLevel });
+    setIsDeciding(true);
+    // async request! how do we get access to the results?
+    attendDinnerParty({
+      health,
+      friendshipLevel,
+    })
+      .then((dinnerPartyResult) => {
+        setDinnerPartyResults([...dinnerPartyResults, dinnerPartyResult]);
+        setIsDeciding(false);
+      })
+      .catch((dinnerPartyResult) => {
+        setDinnerPartyResults([...dinnerPartyResults, dinnerPartyResult]);
+        setIsDeciding(false);
+      });
+  };
+
   // TODO: Add state to store results dinner party attendance
   return (
     <div>
       <h3>Am I going to the Dinner Party?</h3>
-      <h4>Status: Deciding...</h4>
+      <h4>Status: {isDeciding ? <>Deciding...</> : <>Decision made!</>}</h4>
       {/* TODO: display the results of attending the dinner party */}
       <div>
-        {/* TODO: Add value / change handler to get healthiness */}
         <label>
           Health
           <br />
-          <input type="number" min="0" max="1" step="0.01" />
+          <input
+            type="number"
+            min="0"
+            max="1"
+            step="0.01"
+            value={health}
+            onChange={handleHealthChange}
+          />
         </label>
         <label>
           Friendship Level
           <br />
           {/* TODO: Add value / change handler to manage friendship level */}
-          <select>
+          <select
+            value={friendshipLevel}
+            onChange={handleFriendshipLevelChange}
+          >
             {Object.values(FRIENDSHIP_LEVELS).map((friendshipLevel) => {
               return (
                 <option
@@ -87,15 +137,20 @@ const DinnerParty = () => {
           </select>
         </label>
         {/* TODO: Add click handler to make decision on the dinner party */}
-        <button>Will I attend the dinner party?</button>
+        <button onClick={handleDinnerPartyInvite} disabled={isDeciding}>
+          Will I attend the dinner party?
+        </button>
       </div>
       <div>
         <h4>Dinner Party Log</h4>
         <ul>
-          {/* TODO: Show status of past dinner parties */}
-          {/* Use format `Dinner Party ✅ #${id}: ${status}`*/}
-          <li>❌ - Dinner Party #2 - Status 🤢</li>
-          <li>✅ - Dinner Party #1 - Status 🥳</li>
+          {dinnerPartyResults.map((dinnerPartyResult) => {
+            return (
+              <li>
+                Dinner Party #{dinnerPartyResult.id}: {dinnerPartyResult.status}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
