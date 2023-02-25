@@ -42,3 +42,12 @@
   top: 0%;
   right: 0%;
 }
+
+.todo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  border: 1px solid #dcdcdc;
+  padding: 1em;
+}

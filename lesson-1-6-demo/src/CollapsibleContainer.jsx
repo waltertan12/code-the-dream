@@ -1,6 +1,19 @@
 import { useState } from "react";
 
-const CollapsibleContainer = () => {};
+const CollapsibleContainer = ({ title, children }) => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  return (
+    <div className="collapsible-container">
+      <div className="collapsible-label">
+        <div>{title}</div>
+        <button onClick={() => setIsCollapsed(!isCollapsed)}>
+          {isCollapsed ? <>🔽</> : <>🔼</>}
+        </button>
+      </div>
+      {isCollapsed ? null : <div className="collapsible-body">{children}</div>}
+    </div>
+  );
+};
 
 const characters = [
   {
@@ -18,38 +31,22 @@ const characters = [
 ];
 
 const CollapsibleContainerApp = () => {
-  const [isCollapsedMap, setIsCollapsedMap] = useState(
-    characters.reduce((isCollapsedMap, { name }) => {
-      isCollapsedMap[name] = false;
-      return isCollapsedMap;
-    }, {})
-  );
+  // const [isCollapsedMap, setIsCollapsedMap] = useState(
+  //   characters.reduce((isCollapsedMap, { name }) => {
+  //     isCollapsedMap[name] = false;
+  //     return isCollapsedMap;
+  //   }, {})
+  // );
 
   return (
     <div>
       <div></div>
       {characters.map(({ name, info }) => {
-        const isCollapsed = isCollapsedMap[name] || false;
+        // const isCollapsed = isCollapsedMap[name] || false;
         return (
-          <div className="collapsible-container" key={name}>
-            <div className="collapsible-label">
-              <div>
-                <h2>{name}</h2>
-              </div>
-              <button
-                onClick={() =>
-                  setIsCollapsedMap({ ...isCollapsedMap, [name]: !isCollapsed })
-                }
-              >
-                {isCollapsed ? <>🔽</> : <>🔼</>}
-              </button>
-            </div>
-            {isCollapsed ? null : (
-              <div className="collapsible-body">
-                <p>{info}</p>
-              </div>
-            )}
-          </div>
+          <CollapsibleContainer title={<h3>{name}</h3>} key={name}>
+            <p>{info}</p>
+          </CollapsibleContainer>
         );
       })}
     </div>
