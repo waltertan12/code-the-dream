@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DinnerParty from "./DinnerParty";
+import HomeButton from "../HomeButton";
 const PAGES = {
   ASYNC_REQUESTS: "Async Requests",
   DINNER_PARTY: "Am I going to the Dinner Party?",
@@ -12,6 +13,7 @@ function App() {
   }, [currentPage]);
   return (
     <div className="app">
+      <HomeButton />
       <h1>Lesson 1.7: {currentPage}</h1>
       <ul className="table-of-contents">
         {Object.values(PAGES).map((page) => (
