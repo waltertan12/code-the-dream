@@ -22,7 +22,7 @@ function App() {
   const randomizeBodyHandler = () => setPokemonBodyId(getRandomPokemon().id);
 
   return (
-    <div className="app">
+    <div className="pokefusion-app">
       <HomeButton />
       <h1>Pokéfusion</h1>
       <PokefusionResult

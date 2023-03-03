@@ -3,6 +3,8 @@ import CollapsibleContainerApp from "./CollapsibleContainer";
 import ModalApp from "./Modal";
 import ImperativeVsDeclarative from "./ImperativeVsDeclarative";
 import DuplicatingTodos from "./DuplicatingTodos";
+import HomeButton from "../HomeButton";
+import "./index.css";
 const PAGES = {
   IMPERATIVE_VS_DECLARATIVE: "Imperative vs Declarative",
   COLLAPSIBLE_CONTAINER: "Collapsible Container",
@@ -18,7 +20,8 @@ function App() {
     document.title = `Lesson 1.6 Demo - ${currentPage}`;
   }, [currentPage]);
   return (
-    <div className="app">
+    <div className="lesson16-app">
+      <HomeButton />
       <h1>{currentPage}</h1>
       <ul className="table-of-contents">
         {Object.values(PAGES).map((page) => (

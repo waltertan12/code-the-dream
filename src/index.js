@@ -4,6 +4,8 @@ import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import TableOfContents from "./TableOfContents";
 import OneFive from "./lesson-1-5-demo/App";
+import OneSix from "./lesson-1-6-demo/App";
+import OneSeven from "./lesson-1-7-demo/App";
 import Pokefusion from "./pokefusion/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
   {
     path: "/lesson-1.5",
     element: <OneFive />,
+  },
+  {
+    path: "/lesson-1.6",
+    element: <OneSix />,
+  },
+  {
+    path: "/lesson-1.7",
+    element: <OneSeven />,
   },
 ]);
 
