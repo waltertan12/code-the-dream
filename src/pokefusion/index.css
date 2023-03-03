@@ -1,0 +1,26 @@
+.pokefusion-app {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.pokefusion-result {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.pokemon-fusion-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pokemon-select-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pokemon-select-input {
+}
