@@ -1,0 +1,20 @@
+enum GroupType {
+  GROUP_TYPE_INVALID = 1;
+  GROUP_TYPE_DEPARTMENT = 2;
+  GROUP_TYPE_COST_CENTER = 3;
+  GROUP_TYPE_LEGAL_ENTITY = 4;
+  GROUP_TYPE_TITLE = 5;
+  GROUP_TYPE_LOCATION = 6;
+}
+message DistributionGroup {
+  DistributionFilterType distribution_filter_type = 1;
+  repeated string id = 2;
+}
+
+message DistributionFilter {
+  repeated DistributionGroup distribution_group = 1;
+}
+
+message Filter {
+  repeated DistributionFilter distribution_filters = 1;
+}

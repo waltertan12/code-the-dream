@@ -6,6 +6,7 @@ import OnlineOffline from "./OnlineOffline";
 import ConfettiEffect from "./ConfettiEffect";
 import MouseTrail from "./MouseTrail";
 import { useEffect, useState } from "react";
+import HomeButton from "../HomeButton";
 
 const PAGES = {
   FRAGMENTS: "Fragments",
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <div>
+      <HomeButton />
       <h1>{currentPage}</h1>
       <ul>
         {Object.values(PAGES).map((page) => (
