@@ -7,6 +7,7 @@ import OneFive from "./lesson-1-5-demo/App";
 import OneSix from "./lesson-1-6-demo/App";
 import OneSeven from "./lesson-1-7-demo/App";
 import Pokefusion from "./pokefusion/App";
+import Review from "./review-1-4-1-7-demo/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/lesson-1.7",
     element: <OneSeven />,
+  },
+  {
+    path: "/review-1.4-1.7",
+    element: <Review />,
   },
 ]);
 
