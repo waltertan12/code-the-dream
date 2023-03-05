@@ -1,11 +1,6 @@
 import { useState } from "react";
-const VIEWS = {
-  LIST: "LIST",
-  DETAILS: "DETAILS",
-};
 
 const Blog = () => {
-  const [view, setView] = useState(VIEWS.LIST);
   const [users, setUsers] = useState([
     {
       id: 1,
