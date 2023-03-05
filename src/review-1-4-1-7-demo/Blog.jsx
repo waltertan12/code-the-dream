@@ -8,25 +8,54 @@ const getUsers = () => {
       return users;
     });
 };
+const initialUsersState = { error: null, users: [], isLoading: false };
+const usersReducer = (state, action) => {
+  switch (action.type) {
+    case "USERS_FETCH_INITIATED":
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case "USERS_FETCH_SUCCEEDED":
+      return {
+        ...state,
+        isLoading: false,
+        users: action.payload,
+      };
+    case "USERS_FETCH_FAILED":
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    default:
+      throw Error(`Action type "${action.type}" not recognized`);
+  }
+};
 
 const Blog = () => {
-  const [users, setUsers] = useState([]);
-  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
-  const [usersError, setUsersError] = useState(null);
+  const [usersState, usersDispatch] = useReducer(
+    usersReducer,
+    initialUsersState
+  );
   const [selectedUser, setSelectedUser] = useState(null);
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    setIsLoadingUsers(true);
-    setUsersError(null);
+    usersDispatch({ type: "USERS_FETCH_INITIATED" });
     setTimeout(() => {
       getUsers()
         .then((users) => {
-          setUsers(users);
-          setIsLoadingUsers(false);
+          usersDispatch({
+            type: "USERS_FETCH_SUCCEEDED",
+            payload: users,
+          });
         })
         .catch((error) => {
-          setUsersError(error);
-          setIsLoadingUsers(false);
+          usersDispatch({
+            type: "USERS_FETCH_FAILED",
+            payload: error,
+          });
         });
     }, 1000);
   }, []);
@@ -58,12 +87,12 @@ const Blog = () => {
     return (
       <div>
         <h1>Users</h1>
-        {usersError !== null ? <>Oh no, something went wrong 😭</> : null}
-        {isLoadingUsers ? (
+        {usersState.error !== null ? <>Oh no, something went wrong 😭</> : null}
+        {usersState.isLoading ? (
           <>Loading... 🚧</>
         ) : (
           <div className="users-list">
-            {users.map((user) => (
+            {usersState.users.map((user) => (
               <div key={user.id}>
                 <strong>{user.name}</strong>
                 <p>Email: {user.email}</p>
