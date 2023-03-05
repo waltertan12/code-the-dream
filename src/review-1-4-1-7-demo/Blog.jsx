@@ -1,34 +1,37 @@
-import { useState } from "react";
-const VIEWS = {
-  LIST: "LIST",
-  DETAILS: "DETAILS",
+import { useEffect, useReducer, useState } from "react";
+
+const getUsers = () => {
+  return fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response) => response.json())
+    .then((users) => {
+      // throw Error("oh no");
+      return users;
+    });
 };
 
 const Blog = () => {
-  const [view, setView] = useState(VIEWS.LIST);
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: "Leanne Graham",
-      email: "Sincere@april.biz",
-      website: "hildegard.org",
-    },
-    {
-      id: 2,
-      name: "Ervin Howell",
-      email: "Shanna@melissa.tv",
-      website: "anastasia.net",
-    },
-    {
-      id: 3,
-      name: "Clementine Bauch",
-      email: "Nathan@yesenia.net",
-      website: "ramiro.info",
-    },
-  ]);
+  const [users, setUsers] = useState([]);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+  const [usersError, setUsersError] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    setIsLoadingUsers(true);
+    setUsersError(null);
+    setTimeout(() => {
+      getUsers()
+        .then((users) => {
+          setUsers(users);
+          setIsLoadingUsers(false);
+        })
+        .catch((error) => {
+          setUsersError(error);
+          setIsLoadingUsers(false);
+        });
+    }, 1000);
+  }, []);
 
+  // TODO: load posts from users
   const handleUserClick = (user) => {
     setSelectedUser(user);
     setPosts([
@@ -55,16 +58,23 @@ const Blog = () => {
     return (
       <div>
         <h1>Users</h1>
-        <div className="users-list">
-          {users.map((user) => (
-            <div key={user.id}>
-              <strong>{user.name}</strong>
-              <p>Email: {user.email}</p>
-              <p>Website: {user.website}</p>
-              <button onClick={() => handleUserClick(user)}>View Posts</button>
-            </div>
-          ))}
-        </div>
+        {usersError !== null ? <>Oh no, something went wrong 😭</> : null}
+        {isLoadingUsers ? (
+          <>Loading... 🚧</>
+        ) : (
+          <div className="users-list">
+            {users.map((user) => (
+              <div key={user.id}>
+                <strong>{user.name}</strong>
+                <p>Email: {user.email}</p>
+                <p>Website: {user.website}</p>
+                <button onClick={() => handleUserClick(user)}>
+                  View Posts
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     );
   }
