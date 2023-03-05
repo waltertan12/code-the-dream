@@ -21,7 +21,7 @@ const PAGES = {
 function App() {
   const [currentPage, setCurrentPage] = useState(PAGES.FRAGMENTS);
   useEffect(() => {
-    document.title = `Lesson 1.5 Demo - ${currentPage}`;
+    document.title = `${currentPage} | Lesson 1.5 Demo`;
   }, [currentPage]);
 
   return (

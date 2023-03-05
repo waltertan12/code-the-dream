@@ -9,7 +9,7 @@ const PAGES = {
 function App() {
   const [currentPage, setCurrentPage] = useState(PAGES.ASYNC_REQUESTS);
   useEffect(() => {
-    document.title = `Lesson 1.7 Demo - ${currentPage}`;
+    document.title = `${currentPage} | Lesson 1.7 Demo`;
   }, [currentPage]);
   return (
     <div className="app">
