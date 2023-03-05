@@ -10,11 +10,8 @@ const PAGES = {
 function App() {
   const [currentPage, setCurrentPage] = useState(PAGES.NOTES);
   useEffect(() => {
-    document.title = `Lesson 1.7 Demo - ${currentPage}`;
+    document.title = `${currentPage} | Review 1.4 - 1.7`;
   }, [currentPage]);
-  useEffect(() => {
-    document.title = "Review Lesson 1.4 - 1.7";
-  });
   return (
     <div className="app">
       <h1>Review Lesson 1.4 - 1.7: {currentPage}</h1>

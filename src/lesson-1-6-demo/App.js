@@ -17,7 +17,7 @@ function App() {
     PAGES.IMPERATIVE_VS_DECLARATIVE
   );
   useEffect(() => {
-    document.title = `Lesson 1.6 Demo - ${currentPage}`;
+    document.title = `${currentPage} | Lesson 1.6 Demo`;
   }, [currentPage]);
   return (
     <div className="lesson16-app">
