@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import Blog from "./Blog";
+import HomeButton from "../HomeButton";
 
 const PAGES = {
   NOTES: "Notes",
@@ -14,6 +15,7 @@ function App() {
   }, [currentPage]);
   return (
     <div className="app">
+      <HomeButton />
       <h1>Review Lesson 1.4 - 1.7: {currentPage}</h1>
       <ul className="table-of-contents">
         {Object.values(PAGES).map((page) => (
