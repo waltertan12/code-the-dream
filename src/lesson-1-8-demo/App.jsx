@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import HomeButton from "../HomeButton";
 import ProductApp from "./ProductCatalog/ProductApp";
 import Multiplier from "./Multiplier";
+import LoadingSpinner from "./LoadingSpinner";
 const PAGES = {
   NOTES: "Notes",
   MULTIPLIER: "Multipler",
