@@ -1,33 +1,19 @@
 import { memo, useCallback, useMemo, useState } from "react";
 
-const DoubleCounter = () => {
+const Multiply = () => {
   const [aIncrement, setAIncrement] = useState(1);
   const [bIncrement, setBIncrement] = useState(1);
   const [countA, setCountA] = useState(0);
   const [countB, setCountB] = useState(0);
 
-  const incrementCountA = () => setCountA(countA + aIncrement);
-  const incrementCountB = () => setCountB(countB + bIncrement);
+  const incrementCountA = useCallback(() => {
+    setCountA((a) => a + aIncrement);
+  }, [aIncrement]);
+  const incrementCountB = useCallback(() => {
+    setCountB((b) => b + bIncrement);
+  }, [bIncrement]);
   const handleAIncrement = (event) => setAIncrement(Number(event.target.value));
   const handleBIncrement = (event) => setBIncrement(Number(event.target.value));
-
-  // Better
-  // const incrementCountA = useCallback(() => {
-  //   setCountA(countA + 1);
-  // }, [countA]);
-
-  // const incrementCountB = useCallback(() => {
-  //   setCountB(countB + 1);
-  // }, [countB]);
-
-  // Best
-  // const incrementCountA = useCallback(() => {
-  //   setCountA((a) => a + 1);
-  // }, []);
-
-  // const incrementCountB = useCallback(() => {
-  //   setCountB((b) => b + 1);
-  // }, []);
 
   return (
     <div>
@@ -54,6 +40,7 @@ const DoubleCounter = () => {
     </div>
   );
 };
+export default Multiply;
 
 const Button = memo(({ onClick, label }) => {
   console.log({ message: `Rendering <Button />`, label });
@@ -61,7 +48,7 @@ const Button = memo(({ onClick, label }) => {
 });
 
 const Multiplication = ({ a, b }) => {
-  const multiply = (a, b) => {
+  const product = useMemo(() => {
     const start = performance.now();
     let product = 0;
     for (let i = 0; i < Math.abs(a); i += 1) {
@@ -76,13 +63,33 @@ const Multiplication = ({ a, b }) => {
     });
 
     return product;
-  };
+  }, [a, b]);
 
   return (
     <div>
-      {Math.abs(a)} times {Math.abs(b)} is {multiply(a, b)}
+      {Math.abs(a)} times {Math.abs(b)} is {product}
     </div>
   );
 };
 
-export default DoubleCounter;
+const ChildComponent = memo(() => {
+  console.log("ChildComponent rendered");
+  return <div>Child Component</div>;
+});
+
+const ParentComponent = () => {
+  const [count, setCount] = useState(0);
+  console.log("ParentComponent rendered");
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <ChildComponent />
+    </div>
+  );
+};
+
+const App = () => {
+  console.log("App rendered");
+  return <ParentComponent />;
+};
