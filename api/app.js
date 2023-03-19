@@ -62,6 +62,41 @@ app.get("/api/products", (request, response) => {
   }, delay);
 });
 
+const validateCreateUser = (createUserRequest) => {
+  const errors = [];
+  if (!createUserRequest.username) {
+    errors.push("username is required");
+  }
+
+  if (!createUserRequest.email) {
+    errors.push("email is required");
+  }
+
+  if (!createUserRequest.password) {
+    errors.push("password is required");
+  }
+
+  if (createUserRequest.password.length < 12) {
+    errors.push("password must be a minimum of 12 characters");
+  }
+
+  if (
+    !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$/.test(
+      createUserRequest.password
+    )
+  ) {
+    errors.push(
+      "password must contain a lowercase letter, an uppercase letter, a number, and a symbol (@$!%*#?&)"
+    );
+  }
+
+  if (createUserRequest.password !== createUserRequest.passwordConfirmation) {
+    errors.push("password does not match password confirmation");
+  }
+
+  return errors;
+};
+
 app.post("/api/users", (request, response) => {
   const body = request.body || {};
   const delay = Math.floor(Math.random() * 500);
@@ -70,6 +105,16 @@ app.post("/api/users", (request, response) => {
     body: request.body,
     delay,
   });
+
+  const errors = validateCreateUser(body);
+  if (errors) {
+    setTimeout(() => {
+      response.status(400).json({
+        errors,
+      });
+    }, delay);
+    return;
+  }
 
   const now = new Date();
   setTimeout(() => {
