@@ -107,7 +107,7 @@ app.post("/api/users", (request, response) => {
   });
 
   const errors = validateCreateUser(body);
-  if (errors) {
+  if (errors.length) {
     setTimeout(() => {
       response.status(400).json({
         errors,
