@@ -32,16 +32,64 @@ const initialFormState = {
 
 const SignupForm = () => {
   const [formState, setFormState] = useState(initialFormState);
+  const [formErrors, setFormErrors] = useState({});
+
+  const validations = [
+    {
+      key: "username",
+      isValid: (formState) => formState.username.trim().length > 0,
+      errorMessage: "username cannot be blank",
+    },
+    {
+      key: "email",
+      isValid: (formState) =>
+        formState.email.length > 0 &&
+        /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formState.email),
+      errorMessage: "email is not valid",
+    },
+    {
+      key: "password",
+      isValid: (formState) => {
+        return (
+          formState.password.length > 12 &&
+          /[a-z]/.test(formState.password) &&
+          /[A-Z]/.test(formState.password) &&
+          /[0-9]/.test(formState.password) &&
+          /[!@#$%^&*]/.test(formState.password)
+        );
+      },
+      errorMessage: "password is not valid",
+    },
+    {
+      key: "passwordConfirmation",
+      isValid: (formState) => {
+        console.log(formState.password, formState.passwordConfirmation);
+        return formState.password === formState.passwordConfirmation;
+      },
+      errorMessage: "password confirmation does not match password",
+    },
+  ];
+  const validateFormState = (formState) => {
+    const errors = {};
+    validations.forEach((validation) => {
+      const isValid = validation.isValid(formState);
+      if (!isValid) {
+        errors[validation.key] = validation.errorMessage;
+      }
+    });
+
+    return errors;
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const userData = new FormData(event.target);
-      const user = await createUser({
-        username: userData.get("username"),
-        email: userData.get("email"),
-        password: userData.get("password"),
-        passwordConfirmation: userData.get("passwordConfirmation"),
-      });
+      const errors = validateFormState(formState);
+      setFormErrors(errors);
+      // If there are any errors, set the errors and stop form submission
+      if (Object.keys(errors).length > 0) {
+        return;
+      }
+      const user = await createUser(formState);
 
       console.log({ user });
       alert("User created!");
@@ -81,6 +129,9 @@ const SignupForm = () => {
           value={formState.username}
           onChange={handleFormChange}
         ></input>
+        {formErrors.username ? (
+          <p className="error">{formErrors.username}</p>
+        ) : null}
       </label>
       <label>
         <strong>Email</strong>
@@ -93,6 +144,7 @@ const SignupForm = () => {
           value={formState.email}
           onChange={handleFormChange}
         ></input>
+        {formErrors.email ? <p className="error">{formErrors.email}</p> : null}
       </label>
       <label>
         <strong>Password</strong>
@@ -105,6 +157,9 @@ const SignupForm = () => {
           value={formState.password}
           onChange={handleFormChange}
         ></input>
+        {formErrors.password ? (
+          <p className="error">{formErrors.password}</p>
+        ) : null}
       </label>
       <label>
         <strong>Password Confirmation</strong>
@@ -117,6 +172,9 @@ const SignupForm = () => {
           value={formState.passwordConfirmation}
           onChange={handleFormChange}
         ></input>
+        {formErrors.passwordConfirmation ? (
+          <p className="error">{formErrors.passwordConfirmation}</p>
+        ) : null}
       </label>
       <button type="submit" disabled={!isFormComplete()}>
         Sign up
