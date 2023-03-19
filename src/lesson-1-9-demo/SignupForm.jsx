@@ -22,7 +22,11 @@ const SignupForm = () => {
       <label>
         <strong>Password Confirmation</strong>
         <br />
-        <input name="passwordConfirmation" type="password"></input>
+        <input
+          name="passwordConfirmation"
+          type="password"
+          autocomplete="false"
+        ></input>
       </label>
       <button type="submit">Sign up</button>
     </form>
