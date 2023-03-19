@@ -35,11 +35,11 @@ const App = () => {
       </ul>
       {currentPage === PAGES.NOTES ? (
         <a
-          href="https://capricious-dodo-22e.notion.site/2023-03-08-Memoization-and-React-0a7cb627f4bb4aafa6928884b6670f15"
+          href="https://capricious-dodo-22e.notion.site/2023-03-19-2cdc3c62e21b4cc6a511d98e3581e236"
           target="_blank"
           rel="noreferrer"
         >
-          Notes: Memoization and React
+          Notes: Lesson 1.9
         </a>
       ) : null}
       {currentPage === PAGES.ASNYC_AWAIT ? <ProductCatalog /> : null}
