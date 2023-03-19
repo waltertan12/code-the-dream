@@ -23,7 +23,15 @@ const createUser = async (userData) => {
   }
 };
 
+const initialFormState = {
+  username: "",
+  email: "",
+  password: "",
+  passwordConfirmation: "",
+};
+
 const SignupForm = () => {
+  const [formState, setFormState] = useState(initialFormState);
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -41,16 +49,28 @@ const SignupForm = () => {
       console.log(error);
     }
   };
+  const handleFormChange = (event) => {
+    console.log({
+      target: event.target,
+      name: event.target.name,
+      value: event.target.value,
+    });
+    setFormState({
+      ...formState,
+      [event.target.name]: event.target.value,
+    });
+  };
   const validateInput = (event) => {
-    event.target.reportValidity();
+    // TODO: Implement validation
+  };
+  const isFormComplete = () => {
+    return Object.keys(formState).every((key) => {
+      return formState[key] !== initialFormState[key];
+    });
   };
 
   return (
-    <form
-      action="http://localhost:3001/api/users"
-      method="POST"
-      onSubmit={handleSubmit}
-    >
+    <form onSubmit={handleSubmit}>
       <label>
         <strong>Username</strong>
         <br />
@@ -58,8 +78,8 @@ const SignupForm = () => {
           name="username"
           type="text"
           autoComplete="off"
-          required
-          onBlur={validateInput}
+          value={formState.username}
+          onChange={handleFormChange}
         ></input>
       </label>
       <label>
@@ -69,8 +89,9 @@ const SignupForm = () => {
           name="email"
           type="email"
           autoComplete="off"
-          required
           onBlur={validateInput}
+          value={formState.email}
+          onChange={handleFormChange}
         ></input>
       </label>
       <label>
@@ -80,9 +101,9 @@ const SignupForm = () => {
           name="password"
           type="password"
           autoComplete="off"
-          pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$"
-          required
           onBlur={validateInput}
+          value={formState.password}
+          onChange={handleFormChange}
         ></input>
       </label>
       <label>
@@ -92,11 +113,14 @@ const SignupForm = () => {
           name="passwordConfirmation"
           type="password"
           autoComplete="off"
-          required
           onBlur={validateInput}
+          value={formState.passwordConfirmation}
+          onChange={handleFormChange}
         ></input>
       </label>
-      <button type="submit">Sign up</button>
+      <button type="submit" disabled={!isFormComplete()}>
+        Sign up
+      </button>
     </form>
   );
 };
