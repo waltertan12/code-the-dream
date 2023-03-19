@@ -27,6 +27,9 @@ const TableOfContents = () => {
         <li>
           <a href="/lesson-1.9">Lesson 1.9</a>
         </li>
+        <li>
+          <a href="/lesson-2.1">Lesson 2.1</a>
+        </li>
       </ul>
     </div>
   );

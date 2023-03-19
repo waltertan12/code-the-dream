@@ -8,6 +8,7 @@ import OneSix from "./lesson-1-6-demo/App";
 import OneSeven from "./lesson-1-7-demo/App";
 import OneEight from "./lesson-1-8-demo/App";
 import OneNine from "./lesson-1-9-demo/App";
+import TwoOne from "./lesson-2-1-demo/App";
 import Pokefusion from "./pokefusion/App";
 import Review from "./review-1-4-1-7-demo/App";
 
@@ -44,6 +45,14 @@ const router = createBrowserRouter([
   {
     path: "/lesson-1.9",
     element: <OneNine />,
+  },
+  {
+    path: "/lesson-2.1",
+    element: <TwoOne />,
+  },
+  {
+    path: "/lesson-2.1/*",
+    element: <TwoOne />,
   },
 ]);
 
