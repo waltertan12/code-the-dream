@@ -28,7 +28,6 @@ const ProductCatalog = () => {
     let ignore = false;
     setIsLoading(true);
     const loadData = async () => {
-      // TODO: do async things inside here instead
       try {
         const response = await listProducts(pageSize, null);
         if (ignore) {
