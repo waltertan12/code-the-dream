@@ -7,17 +7,17 @@ const SignupForm = () => {
       <label>
         <strong>Username</strong>
         <br />
-        <input name="username" type="text" autocomplete="false"></input>
+        <input name="username" type="text" autoComplete="off"></input>
       </label>
       <label>
         <strong>Email</strong>
         <br />
-        <input name="email" type="email" autocomplete="false"></input>
+        <input name="email" type="email" autoComplete="off"></input>
       </label>
       <label>
         <strong>Password</strong>
         <br />
-        <input name="password" type="password" autocomplete="false"></input>
+        <input name="password" type="password" autoComplete="off"></input>
       </label>
       <label>
         <strong>Password Confirmation</strong>
@@ -25,7 +25,7 @@ const SignupForm = () => {
         <input
           name="passwordConfirmation"
           type="password"
-          autocomplete="false"
+          autoComplete="off"
         ></input>
       </label>
       <button type="submit">Sign up</button>
