@@ -1,5 +1,7 @@
 # Code the Dream
 
+Lesson plans for the Code the Dream React curriculum
+
 ## Setup Instructions
 
 - Install dependencies
