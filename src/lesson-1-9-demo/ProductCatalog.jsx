@@ -6,13 +6,14 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
   currency: "USD",
 });
 
-const listProducts = (pageSize, cursor) => {
+const listProducts = async (pageSize, cursor) => {
   const url = new URL("http://localhost:3001/api/products");
   url.searchParams.append("limit", pageSize);
   if (cursor !== null) {
     url.searchParams.append("cursor", cursor);
   }
-  return fetch(url).then((response) => response.json());
+  const response = await fetch(url);
+  return response.json();
 };
 
 const ProductCatalog = () => {
@@ -26,9 +27,9 @@ const ProductCatalog = () => {
   useEffect(() => {
     let ignore = false;
     setIsLoading(true);
-
-    listProducts(pageSize, null)
-      .then((response) => {
+    const loadData = async () => {
+      try {
+        const response = await listProducts(pageSize, null);
         if (ignore) {
           return console.log({
             message: "Ignoring response",
@@ -42,14 +43,17 @@ const ProductCatalog = () => {
         setProducts(response.data);
         setNextCursor(response.nextCursor);
         setPrevCursor(response.prevCursor);
-      })
-      .catch((error) => {
+      } catch (error) {
         if (ignore) {
           return console.log({ message: "Ignoring error", ignore, error });
         }
         console.error({ error });
+        setError(error);
         setIsLoading(false);
-      });
+      }
+    };
+    loadData();
+
     return () => {
       ignore = true;
     };
