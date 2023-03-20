@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import HomeButton from "../HomeButton";
-import { DemoApp } from "./MiniReactRouter";
+import DemoApp from "./DemoApp";
 const PAGES = {
   NOTES: "Notes",
   MINI_REACT_ROUTER: "Mini React Router",
@@ -33,7 +33,7 @@ const App = () => {
       </ul>
       {currentPage === PAGES.NOTES ? (
         <a
-          href="https://capricious-dodo-22e.notion.site/2023-03-25-Lesson-2-1-990594609a664d9682b9ec176dfc16f2"
+          href="https://capricious-dodo-22e.notion.site/2023-03-25-Lesson-2-1-665f2efd7eb240f5b2190f090ff145d4"
           target="_blank"
           rel="noreferrer"
         >
