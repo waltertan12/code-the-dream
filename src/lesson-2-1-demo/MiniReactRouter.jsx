@@ -22,7 +22,8 @@ export const Router = ({ routes }) => {
   if (!Component) {
     console.error({
       message: "[Router] Unable to find Component",
-      path: location,
+      location,
+      routes,
     });
     return (
       <div>
@@ -35,13 +36,14 @@ export const Router = ({ routes }) => {
   }
 
   console.log({ message: "[Router] Found Component", path: location });
+
   return <Component />;
 };
 
 export const Link = ({ to, children }) => {
   const handleClick = (event) => {
     event.preventDefault();
-    window.history.pushState(null, "", to);
+    window.history.pushState(null, null, to);
     window.dispatchEvent(new PopStateEvent("popstate"));
   };
 
