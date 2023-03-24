@@ -37,6 +37,11 @@ const Home = () => (
           Contact {COMPANY_NAME}
         </Link>
       </li>
+      <li>
+        <Link to="/lesson-2.1/not-found" component={Contact}>
+          Not Found
+        </Link>
+      </li>
     </ul>
   </div>
 );
