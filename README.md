@@ -22,6 +22,6 @@ Start the React developement server
 yarn start
 ```
 
-## Lesson Notes
+## Lessons
 
-- [Lesson 2.1](https://www.notion.so/2023-03-25-Lesson-2-1-665f2efd7eb240f5b2190f090ff145d4)
+- [Lesson 2.1](./src/lesson-2-1-demo/README.md)
