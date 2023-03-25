@@ -3,12 +3,7 @@ import { createContext, Component } from "react";
 
 export const HelloWorld = () => <p>Hello, World!</p>;
 
-export class Hello extends Component {
-  render() {
-    const { name } = this.props;
-    return <p>Hello, {name}!</p>;
-  }
-}
+export const Hello = ({ name }) => <p>Hello, {name}!</p>;
 
 export class Counter extends Component {
   // Aside: Notice how the constructor accepts props as the first argument
