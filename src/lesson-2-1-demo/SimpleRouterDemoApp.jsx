@@ -5,16 +5,28 @@ const COMPANY_NAME = faker.company.name();
 const About = () => (
   <div>
     <h1>About {COMPANY_NAME}</h1>
-    <p>{faker.company.catchPhrase()}</p>
-    <p>{faker.company.catchPhrase()}</p>
-    <p>{faker.company.catchPhrase()}</p>
+    <p>Experts in:</p>
+    <ul>
+      <p>{faker.company.catchPhrase()}</p>
+      <p>{faker.company.catchPhrase()}</p>
+      <p>{faker.company.catchPhrase()}</p>
+    </ul>
   </div>
 );
 
 const Contact = () => (
   <div>
     <h2>Contact {COMPANY_NAME}</h2>
-    <p>Email: {faker.internet.exampleEmail()}</p>
+    <h3>Email</h3>
+    <p>{faker.internet.exampleEmail()}</p>
+    <h3>Address</h3>
+    <p>
+      {faker.address.streetAddress()} {faker.address.secondaryAddress()}
+    </p>
+    <p>
+      {faker.address.city()} {faker.address.stateAbbr()}{" "}
+      {faker.address.zipCode()}
+    </p>
   </div>
 );
 const Home = () => (
