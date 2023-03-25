@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 const HomeButton = () => (
   <div style={{ display: "flex" }}>
-    <a href="/">＜ Home</a>
+    <Link to="/">＜ Home</Link>
   </div>
 );
 

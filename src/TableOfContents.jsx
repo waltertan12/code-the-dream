@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useTitle } from "./hooks";
 
 const TableOfContents = () => {
@@ -7,28 +8,28 @@ const TableOfContents = () => {
       <h1>Code the Dream: Cockatoo</h1>
       <ul>
         <li>
-          <a href="/pokefusion">Pokefusion</a>
+          <Link to="/pokefusion">Pokefusion</Link>
         </li>
         <li>
-          <a href="/lesson-1.5">Lesson 1.5</a>
+          <Link to="/lesson-1.5">Lesson 1.5</Link>
         </li>
         <li>
-          <a href="/lesson-1.6">Lesson 1.6</a>
+          <Link to="/lesson-1.6">Lesson 1.6</Link>
         </li>
         <li>
-          <a href="/lesson-1.7">Lesson 1.7</a>
+          <Link to="/lesson-1.7">Lesson 1.7</Link>
         </li>
         <li>
-          <a href="/review-1.4-1.7">Review: Lesson 1.4 - Lesson 1.7</a>
+          <Link to="/review-1.4-1.7">Review: Lesson 1.4 - Lesson 1.7</Link>
         </li>
         <li>
-          <a href="/lesson-1.8">Lesson 1.8</a>
+          <Link to="/lesson-1.8">Lesson 1.8</Link>
         </li>
         <li>
-          <a href="/lesson-1.9">Lesson 1.9</a>
+          <Link to="/lesson-1.9">Lesson 1.9</Link>
         </li>
         <li>
-          <a href="/lesson-2.1">Lesson 2.1</a>
+          <Link to="/lesson-2.1">Lesson 2.1</Link>
         </li>
       </ul>
     </div>
