@@ -1,11 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { createContext, Component } from "react";
 
-export class HelloWorld extends Component {
-  render() {
-    return <p>Hello, World!</p>;
-  }
-}
+export const HelloWorld = () => <p>Hello, World!</p>;
 
 export class Hello extends Component {
   render() {
