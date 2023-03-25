@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import HomeButton from "../HomeButton";
-import DemoApp from "./DemoApp";
+import SimpleRouterDemoApp from "./SimpleRouterDemoApp";
 const PAGES = {
   NOTES: "Notes",
-  MINI_REACT_ROUTER: "Mini React Router",
+  SIMPLE_REACT_ROUTER: "Simple React Router",
 };
 
 const App = () => {
@@ -40,7 +40,9 @@ const App = () => {
           Notes: Lesson 2.1
         </a>
       ) : null}
-      {currentPage === PAGES.MINI_REACT_ROUTER ? <DemoApp /> : null}
+      {currentPage === PAGES.SIMPLE_REACT_ROUTER ? (
+        <SimpleRouterDemoApp />
+      ) : null}
     </div>
   );
 };

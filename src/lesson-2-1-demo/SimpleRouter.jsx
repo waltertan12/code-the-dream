@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const Router = ({ routes }) => {
+export const SimpleRouter = ({ routes }) => {
   const [location, setLocation] = useState(window.location.pathname);
   useEffect(() => {
     const handlePopState = (event) => {
@@ -40,7 +40,7 @@ export const Router = ({ routes }) => {
   return <Component />;
 };
 
-export const Link = ({ to, children }) => {
+export const SimpleLink = ({ to, children }) => {
   const handleClick = (event) => {
     event.preventDefault();
     window.history.pushState(null, null, to);
