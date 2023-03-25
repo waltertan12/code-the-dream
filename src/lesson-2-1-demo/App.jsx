@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import HomeButton from "../HomeButton";
 import SimpleRouterDemoApp from "./SimpleRouterDemoApp";
+import { ClassComponentApp } from "./ClassComponents";
 const PAGES = {
   NOTES: "Notes",
   SIMPLE_REACT_ROUTER: "Simple React Router",
+  CLASS_COMPONENTS: "Class Components",
 };
 
 const App = () => {
@@ -43,6 +45,7 @@ const App = () => {
       {currentPage === PAGES.SIMPLE_REACT_ROUTER ? (
         <SimpleRouterDemoApp />
       ) : null}
+      {currentPage === PAGES.CLASS_COMPONENTS ? <ClassComponentApp /> : null}
     </div>
   );
 };
