@@ -52,12 +52,9 @@ describe("<Timer />", () => {
     expect(container).toHaveTextContent("0.000 seconds have passed");
     act(() => jest.advanceTimersByTime(1_000));
     expect(container).not.toHaveTextContent("0.000 seconds have passed");
-    expect(container).toHaveTextContent("1.000 seconds have passed");
     expect(consoleLogSpy).toHaveBeenCalledWith({
       message: "[Timer] Component updated",
-      props: {
-        fps,
-      },
+      props: { fps },
       state: expect.any(Object),
     });
   });

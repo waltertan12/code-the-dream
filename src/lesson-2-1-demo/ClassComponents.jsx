@@ -22,59 +22,41 @@ export const Counter = () => {
   );
 };
 
-export class Timer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { interval: null, start: performance.now(), elapsed: 0 };
-  }
-
-  componentDidMount() {
+export const Timer = ({ fps }) => {
+  const [timerInterval, setTimerInterval] = useState(null);
+  const [start] = useState(performance.now());
+  const [elapsed, setElapsed] = useState(0);
+  useEffect(() => {
     console.log({ message: "[Timer] Component mounted" });
-    this.setState({
-      ...this.state,
-      interval: setInterval(
-        () =>
-          this.setState((state) => ({
-            ...state,
-            elapsed: performance.now() - state.start,
-          })),
-        1_000 / this.props.fps || 24
-      ),
-    });
-  }
-
-  componentDidUpdate() {
+    setTimerInterval(
+      setInterval(() => setElapsed(performance.now() - start), 1_000 / fps)
+    );
+    return () => {
+      console.log({ message: "[Timer] Component unmounting" });
+      clearInterval(timerInterval);
+      setTimerInterval(null);
+    };
+  }, []);
+  useEffect(() => {
     console.log({
       message: "[Timer] Component updated",
-      state: this.state,
-      props: this.props,
+      state: { elapsed, timerInterval, start },
+      props: { fps },
     });
-  }
-
-  componentWillUnmount() {
-    console.log({ message: "[Timer] Component unmounting" });
-    clearInterval(this.state.interval);
-    this.setState({ interval: null });
-  }
-
-  render() {
-    return (
-      <div>
-        <code>{(this.state.elapsed / 1_000).toFixed(3)}</code> seconds have
-        passed
-      </div>
-    );
-  }
-}
+  });
+  return (
+    <div>
+      <code>{(elapsed / 1_000).toFixed(3)}</code> seconds have passed
+    </div>
+  );
+};
 
 export const NameContext = createContext({ name: "World" });
 
-export class HelloWithContext extends Component {
-  static contextType = NameContext;
-  render() {
-    return <p>Hello, {this.context.name}!</p>;
-  }
-}
+export const HelloWithContext = () => {
+  const context = useContext(NameContext);
+  return <p>Hello, {context.name}!</p>;
+};
 
 export class ClassComponentApp extends Component {
   render() {
