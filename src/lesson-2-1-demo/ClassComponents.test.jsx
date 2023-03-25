@@ -2,12 +2,12 @@ import { faker } from "@faker-js/faker";
 import { act, render, fireEvent, screen } from "@testing-library/react";
 
 import {
-  HelloWorld,
-  Hello,
   Counter,
-  Lifecycle,
+  Hello,
   HelloWithContext,
+  HelloWorld,
   NameContext,
+  Timer,
 } from "./ClassComponents";
 
 describe("<HelloWorld />", () => {
@@ -43,18 +43,18 @@ describe("<Counter />", () => {
   });
 });
 
-describe("<Lifecycle />", () => {
+describe("<Timer />", () => {
   test("renders component and updates elapsed time", () => {
     jest.useFakeTimers();
     const consoleLogSpy = jest.spyOn(console, "log");
     const fps = 24;
-    const { container } = render(<Lifecycle fps={fps} />);
+    const { container } = render(<Timer fps={fps} />);
     expect(container).toHaveTextContent("0.000 seconds have passed");
     act(() => jest.advanceTimersByTime(1_000));
     expect(container).not.toHaveTextContent("0.000 seconds have passed");
     expect(container).toHaveTextContent("1.000 seconds have passed");
     expect(consoleLogSpy).toHaveBeenCalledWith({
-      message: "[Lifecycle] Component updated",
+      message: "[Timer] Component updated",
       props: {
         fps,
       },
@@ -66,7 +66,7 @@ describe("<Lifecycle />", () => {
     jest.useFakeTimers();
     const fps = 24;
     const clearIntervalSpy = jest.spyOn(window, "clearInterval");
-    const { unmount } = render(<Lifecycle fps={fps} />);
+    const { unmount } = render(<Timer fps={fps} />);
     act(() => unmount());
     expect(clearIntervalSpy).toHaveBeenCalledTimes(1);
   });
