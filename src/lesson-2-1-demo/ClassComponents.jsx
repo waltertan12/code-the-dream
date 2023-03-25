@@ -1,33 +1,26 @@
 import { faker } from "@faker-js/faker";
-import { createContext, Component } from "react";
+import {
+  createContext,
+  Component,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 
 export const HelloWorld = () => <p>Hello, World!</p>;
 
 export const Hello = ({ name }) => <p>Hello, {name}!</p>;
 
-export class Counter extends Component {
-  // Aside: Notice how the constructor accepts props as the first argument
-  constructor(props) {
-    // Notice how we MUST call super(props)
-    super(props);
-    this.state = { count: 0 };
-  }
-
-  incrementCount() {
-    this.setState({ count: this.state.count + 1 });
-  }
-
-  render() {
-    return (
-      <div>
-        <p>Count: {this.state.count}</p>
-        <button id="lmao" onClick={() => this.incrementCount()}>
-          Increment
-        </button>
-      </div>
-    );
-  }
-}
+export const Counter = () => {
+  const [count, setCount] = useState(0);
+  const incrementCount = () => setCount(count + 1);
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={incrementCount}>Increment</button>
+    </div>
+  );
+};
 
 export class Timer extends Component {
   constructor(props) {
