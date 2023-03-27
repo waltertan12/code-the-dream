@@ -1,96 +1,62 @@
 import { faker } from "@faker-js/faker";
-import { createContext, Component } from "react";
+import {
+  createContext,
+  Component,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 
-export class HelloWorld extends Component {
-  render() {
-    return <p>Hello, World!</p>;
-  }
-}
+export const HelloWorld = () => <p>Hello, World!</p>;
 
-export class Hello extends Component {
-  render() {
-    const { name } = this.props;
-    return <p>Hello, {name}!</p>;
-  }
-}
+export const Hello = ({ name }) => <p>Hello, {name}!</p>;
 
-export class Counter extends Component {
-  // Aside: Notice how the constructor accepts props as the first argument
-  constructor(props) {
-    // Notice how we MUST call super(props)
-    super(props);
-    this.state = { count: 0 };
-  }
+export const Counter = () => {
+  const [count, setCount] = useState(0);
+  const incrementCount = () => setCount(count + 1);
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={incrementCount}>Increment</button>
+    </div>
+  );
+};
 
-  incrementCount() {
-    this.setState({ count: this.state.count + 1 });
-  }
-
-  render() {
-    return (
-      <div>
-        <p>Count: {this.state.count}</p>
-        <button id="lmao" onClick={() => this.incrementCount()}>
-          Increment
-        </button>
-      </div>
-    );
-  }
-}
-
-export class Timer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { interval: null, start: performance.now(), elapsed: 0 };
-  }
-
-  componentDidMount() {
+export const Timer = ({ fps }) => {
+  const [timerInterval, setTimerInterval] = useState(null);
+  const [start] = useState(performance.now());
+  const [elapsed, setElapsed] = useState(0);
+  useEffect(() => {
     console.log({ message: "[Timer] Component mounted" });
-    this.setState({
-      ...this.state,
-      interval: setInterval(
-        () =>
-          this.setState((state) => ({
-            ...state,
-            elapsed: performance.now() - state.start,
-          })),
-        1_000 / this.props.fps || 24
-      ),
-    });
-  }
-
-  componentDidUpdate() {
+    setTimerInterval(
+      setInterval(() => setElapsed(performance.now() - start), 1_000 / fps)
+    );
+    return () => {
+      console.log({ message: "[Timer] Component unmounting" });
+      clearInterval(timerInterval);
+      setTimerInterval(null);
+    };
+  }, []);
+  useEffect(() => {
     console.log({
       message: "[Timer] Component updated",
-      state: this.state,
-      props: this.props,
+      state: { elapsed, timerInterval, start },
+      props: { fps },
     });
-  }
-
-  componentWillUnmount() {
-    console.log({ message: "[Timer] Component unmounting" });
-    clearInterval(this.state.interval);
-    this.setState({ interval: null });
-  }
-
-  render() {
-    return (
-      <div>
-        <code>{(this.state.elapsed / 1_000).toFixed(3)}</code> seconds have
-        passed
-      </div>
-    );
-  }
-}
+  });
+  return (
+    <div>
+      <code>{(elapsed / 1_000).toFixed(3)}</code> seconds have passed
+    </div>
+  );
+};
 
 export const NameContext = createContext({ name: "World" });
 
-export class HelloWithContext extends Component {
-  static contextType = NameContext;
-  render() {
-    return <p>Hello, {this.context.name}!</p>;
-  }
-}
+export const HelloWithContext = () => {
+  const context = useContext(NameContext);
+  return <p>Hello, {context.name}!</p>;
+};
 
 export class ClassComponentApp extends Component {
   render() {
