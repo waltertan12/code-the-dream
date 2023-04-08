@@ -13,7 +13,7 @@ const PAGES = {
 const App = () => {
   const [currentPage, setCurrentPage] = useState(PAGES.NOTES);
   useEffect(() => {
-    document.title = `${currentPage} | Lesson 1.9 Demo`;
+    document.title = `${currentPage} | Lesson 3.1 Demo`;
   }, [currentPage]);
   return (
     <div>
@@ -37,7 +37,7 @@ const App = () => {
       </ul>
       {currentPage === PAGES.NOTES ? (
         <a
-          href="https://capricious-dodo-22e.notion.site/2023-03-25-Lesson-2-1-665f2efd7eb240f5b2190f090ff145d4"
+          href="https://capricious-dodo-22e.notion.site/2023-04-01-Design-Systems-6750eeda4afb44df9eb79bbfe934cc62"
           target="_blank"
           rel="noreferrer"
         >
