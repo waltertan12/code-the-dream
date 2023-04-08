@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
+    "@rebass/preset": "^4.0.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -15,7 +16,10 @@
     "react-dom-confetti": "^0.2.0",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
+    "rebass": "^4.0.7",
     "sort-by": "^1.2.0",
+    "styled-components": "^5.3.9",
+    "styled-system": "^5.1.5",
     "swr": "^2.1.0",
     "web-vitals": "^2.1.4"
   },
