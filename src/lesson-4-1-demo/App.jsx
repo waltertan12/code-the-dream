@@ -11,7 +11,7 @@ const PAGES = {
 const App = () => {
   const [currentPage, setCurrentPage] = useState(PAGES.NOTES);
   useEffect(() => {
-    document.title = `${currentPage} | Lesson 3.1 Demo`;
+    document.title = `${currentPage} | Lesson 4.1 Demo`;
   }, [currentPage]);
   return (
     <div>
@@ -35,11 +35,11 @@ const App = () => {
       </ul>
       {currentPage === PAGES.NOTES ? (
         <a
-          href="https://capricious-dodo-22e.notion.site/2023-04-01-Design-Systems-6750eeda4afb44df9eb79bbfe934cc62"
+          href="https://capricious-dodo-22e.notion.site/Typescript-75469e4625c34a70b053fb22677f5571"
           target="_blank"
           rel="noreferrer"
         >
-          Notes: Lesson 3.1
+          Notes: Lesson 4.1
         </a>
       ) : null}
       {currentPage === PAGES.AGE_CALCULATOR ? <AgeCalculator /> : null}
