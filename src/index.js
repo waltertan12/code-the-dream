@@ -12,6 +12,7 @@ import TwoOne from "./lesson-2-1-demo/App";
 import Pokefusion from "./pokefusion/App";
 import Review from "./review-1-4-1-7-demo/App";
 import ThreeOne from "./lesson-3-1-demo/App";
+import FourOne from "./lesson-4-1-demo/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: "/lesson-3.1",
     element: <ThreeOne />,
+  },
+  {
+    path: "/lesson-4.1",
+    element: <FourOne />,
   },
 ]);
 

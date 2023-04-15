@@ -34,6 +34,9 @@ const TableOfContents = () => {
         <li>
           <Link to="/lesson-3.1">Lesson 3.1</Link>
         </li>
+        <li>
+          <Link to="/lesson-4.1">Lesson 4.1</Link>
+        </li>
       </ul>
     </div>
   );
