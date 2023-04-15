@@ -3,6 +3,7 @@ import HomeButton from "../HomeButton";
 import RebassApp from "./RebassApp";
 import StyledComponentApp from "./StyledComponentApp";
 import StyledSystemApp from "./StyledSystemApp";
+import Context from "./Context";
 const PAGES = {
   NOTES: "Notes",
   STYLED_COMPONENTS: "Styled Components",
