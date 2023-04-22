@@ -42,7 +42,7 @@ const App = () => {
       </ul>
       {currentPage === PAGES.NOTES ? (
         <a
-          href="https://capricious-dodo-22e.notion.site/Typescript-75469e4625c34a70b053fb22677f5571"
+          href="https://capricious-dodo-22e.notion.site/2023-04-22-Pagination-4db3e35d0a01465d86c71150a2660cdd"
           target="_blank"
           rel="noreferrer"
         >
