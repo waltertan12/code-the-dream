@@ -28,16 +28,19 @@ export const UsersList: React.FC<UsersListProps> = ({
   const [pageSize, setPageSize] = useState(5);
   const [cursor, setCursor] = useState(0);
   const handlePreviousClick = () => {
-    // TODO
+    setCursor(cursor - pageSize);
   };
   const handleNextClick = () => {
-    // TODO
+    setCursor(cursor + pageSize);
   };
+
+  console.log({ cursor, pageSize, nextCursor: cursor + pageSize });
 
   return (
     <div>
       <ul>
         {users
+          .slice(cursor, cursor + pageSize)
           // TODO
           .map((user) => {
             return (
@@ -48,8 +51,15 @@ export const UsersList: React.FC<UsersListProps> = ({
           })}
       </ul>
 
-      <button onClick={handlePreviousClick}>Previous</button>
-      <button onClick={handleNextClick}>Next</button>
+      <button onClick={handlePreviousClick} disabled={cursor <= 0}>
+        Previous
+      </button>
+      <button
+        onClick={handleNextClick}
+        disabled={cursor + pageSize >= users.length}
+      >
+        Next
+      </button>
     </div>
   );
 };
