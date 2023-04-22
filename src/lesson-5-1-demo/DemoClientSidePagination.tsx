@@ -27,15 +27,18 @@ export const UsersList: React.FC<UsersListProps> = ({
 }) => {
   const [pageSize, setPageSize] = useState(5);
   const [cursor, setCursor] = useState(0);
-  const handlePreviousClick = () => setCursor(cursor - pageSize);
-  const handleNextClick = () => setCursor(cursor + pageSize);
+  const handlePreviousClick = () => {
+    // TODO
+  };
+  const handleNextClick = () => {
+    // TODO
+  };
 
   return (
     <div>
       <ul>
         {users
-          // slice creates a new array from indexes cursor to cursor + pageSize
-          .slice(cursor, cursor + pageSize)
+          // TODO
           .map((user) => {
             return (
               <li key={user.id}>
@@ -60,15 +63,17 @@ export const UsersListWithSorting: React.FC<UsersListProps> = ({
   const [sortBy, setSortBy] = useState<SortBy>("id");
   const [sortDirection, setSortDirection] = useState<SortDirection>("ASC");
 
-  const handlePreviousClick = () => setCursor(cursor - pageSize);
-  const handleNextClick = () => setCursor(cursor + pageSize);
+  const handlePreviousClick = () => {
+    // TODO
+  };
+  const handleNextClick = () => {
+    //TODO
+  };
   const handleSortByChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setCursor(0);
-    setSortBy(event.target.value as SortBy);
+    // TODO
   };
   const handleSortDirectionChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setCursor(0);
-    setSortDirection(event.target.value as SortDirection);
+    // TODO
   };
   const direction = sortDirection === "ASC" ? 1 : -1;
 
@@ -76,16 +81,8 @@ export const UsersListWithSorting: React.FC<UsersListProps> = ({
     <div>
       <ul>
         {users
+          // TODO
           // sort the users first before paginating
-          .sort((left, right) => {
-            if (left[sortBy] > right[sortBy]) {
-              return 1 * direction;
-            } else if (left[sortBy] === right[sortBy]) {
-              return 0;
-            } else {
-              return -1 * direction;
-            }
-          })
           // slice creates a new array from indexes cursor to cursor + pageSize
           .slice(cursor, cursor + pageSize)
           .map((user) => {
