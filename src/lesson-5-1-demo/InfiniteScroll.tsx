@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from "react";
-import {
-  listProducts,
-  Product,
-  ListProductResponse,
-  SORT_BYS,
-  SORT_DIRECTIONS,
-  ASC,
-  PAGE_SIZES,
-} from "./ProductApi";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { listProducts, Product, ListProductResponse } from "./ProductApi";
 import ProductRow from "./ProductRow";
 
 const InfiniteScroll = () => {
+  const observer = useRef<IntersectionObserver>();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error>();
@@ -19,7 +12,7 @@ const InfiniteScroll = () => {
     let ignore = false;
     setError(undefined);
     setLoading(true);
-    listProducts(undefined, 3)
+    listProducts(undefined, 10)
       .then((response: ListProductResponse) => {
         if (ignore) {
           return;
@@ -44,36 +37,62 @@ const InfiniteScroll = () => {
       ignore = true;
     };
   }, []);
-  useEffect(() => {
-    const onScroll = () => {
-      const scrollTop = document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight;
-      if (scrollTop + clientHeight >= scrollHeight) {
-        setError(undefined);
-        setLoading(true);
-        listProducts(nextCursor ?? undefined, 3)
-          .then((response: ListProductResponse) => {
-            setLoading(false);
-            setProducts([...products, ...response.data]);
-            setNextCursor(response.nextCursor);
-          })
-          .catch((error) => setError(error))
-          .finally(() => setLoading(false));
+  const lastElementRef = useCallback(
+    (element: HTMLDivElement) => {
+      //element is the last React element being referenced
+
+      // disconnect observer set on previous last element
+      if (observer.current) {
+        observer.current.disconnect();
       }
-    };
-    window.addEventListener("scroll", onScroll);
-    return () => {
-      console.log("unmounting???");
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, [nextCursor]);
+
+      // if there's no more data to be fetched, don't create a new observer
+      if (!nextCursor) {
+        return;
+      }
+
+      // create a new observer
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && nextCursor) {
+          console.log("load more");
+          setLoading(true);
+          setError(undefined);
+          listProducts(nextCursor ?? undefined, 5)
+            .then((response: ListProductResponse) => {
+              setProducts((currentProducts) => [
+                ...currentProducts,
+                ...response.data,
+              ]);
+              setNextCursor(response.nextCursor);
+            })
+            .catch((error) => {
+              setError(error);
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+        }
+      });
+
+      // observe the last element
+      if (element) {
+        observer.current.observe(element);
+      }
+    },
+    [nextCursor]
+  );
 
   return (
     <div>
-      <ul>
-        {products.map((product) => {
-          return <ProductRow product={product} key={product.id} />;
+      <ul style={{ padding: 0 }}>
+        {products.map((product, index) => {
+          return (
+            <ProductRow
+              ref={index === products.length - 1 ? lastElementRef : undefined}
+              product={product}
+              key={product.id}
+            />
+          );
         })}
       </ul>
       {loading && <p>Loading...</p>}

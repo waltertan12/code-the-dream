@@ -20,7 +20,7 @@ const generateProducts = (count = PRODUCT_COUNT) => {
     id: uuid.v4(),
     name: faker.commerce.productName(),
     description: faker.commerce.productDescription(),
-    price: Number(faker.commerce.price()),
+    price: Number(faker.commerce.price(1, 1_000_000_000)),
   }));
 };
 const STATIC_PRODUCTS = generateProducts();
@@ -49,6 +49,11 @@ const sortedProducts = {
   },
 };
 
+console.log({
+  asc: sortedProducts.price.ASC.slice(0, 10),
+  desc: sortedProducts.price.DESC.slice(0, 10),
+});
+
 const VALID_SORT = {
   id: "id",
   name: "name",
@@ -65,11 +70,11 @@ const VALID_SORT_DIRECTION = {
 app.get("/api/v1/products", (request, response) => {
   const delay = Math.random() * 500;
   console.log({ request: request.query });
-  const sort = VALID_SORT[request.query.sort] ?? "id";
+  const sortBy = VALID_SORT[request.query.sortBy] ?? "id";
   const sortDirection =
     VALID_SORT_DIRECTION[request.query.sortDirection] ?? "ASC";
 
-  const products = sortedProducts[sort][sortDirection];
+  const products = sortedProducts[sortBy][sortDirection];
 
   let limit = DEFAULT_LIMIT;
   if (request.query.limit) {

@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import {
   Product,
   ListProductResponse,
-  SORT_BYS,
-  SORT_DIRECTIONS,
+  SORT_BY_ID,
   ASC,
   PAGE_SIZES,
   listProducts,
+  SortBy,
+  SortDirection,
 } from "./ProductApi";
 import ProductRow from "./ProductRow";
+import { CursorPagination } from "./ProductPagination";
 
 const ClientSidePagination = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -52,51 +54,33 @@ const ClientSidePagination = () => {
 
   return (
     <div>
-      <ul>
+      <ul style={{ padding: 0 }}>
         {products.map((product) => {
           return <ProductRow product={product} key={product.id} />;
         })}
       </ul>
-      <div>
-        <label>
-          Page Size
-          <select>
-            {PAGE_SIZES.map((pageSize) => {
-              return (
-                <option value={pageSize} key={pageSize}>
-                  {pageSize}
-                </option>
-              );
-            })}
-          </select>
-        </label>
-        <label>
-          Sort By
-          <select>
-            {SORT_BYS.map((sortBy) => {
-              return (
-                <option value={sortBy} key={sortBy}>
-                  {sortBy}
-                </option>
-              );
-            })}
-          </select>
-        </label>
-        <label>
-          Sort Direction
-          <select>
-            {SORT_DIRECTIONS.map((sortDirection) => {
-              return (
-                <option value={sortDirection} key={sortDirection}>
-                  {sortDirection === ASC ? "🔼" : "🔽"}
-                </option>
-              );
-            })}
-          </select>
-        </label>
-        <button>Prev</button>
-        <button>Next</button>
-      </div>
+      <CursorPagination
+        pageSize={PAGE_SIZES[0]}
+        sortBy={SORT_BY_ID}
+        sortDirection={ASC}
+        hasNext={false}
+        hasPrevious={false}
+        onPageSizeChange={(nextPageSize: number) => {
+          console.log("Changing page size", nextPageSize);
+        }}
+        onSortByChange={(nextSortBy: SortBy) => {
+          console.log("Changing sort by", nextSortBy);
+        }}
+        onSortDirectionChange={(nextSortDirection: SortDirection) => {
+          console.log("Changing sort direction", nextSortDirection);
+        }}
+        onNextClick={() => {
+          console.log("Clicking next");
+        }}
+        onPreviousClick={() => {
+          console.log("Changing previous");
+        }}
+      />
     </div>
   );
 };

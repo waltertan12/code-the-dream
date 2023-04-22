@@ -16,8 +16,8 @@ export type ListProductResponse = ListResponse<Product>;
 
 export const ASC = "ASC";
 export const DESC = "DESC";
-export const SORT_DIRECTIONS = [ASC, DESC];
 export type SortDirection = typeof ASC | typeof DESC;
+export const SORT_DIRECTIONS: SortDirection[] = [ASC, DESC];
 
 export const SORT_BY_ID = "id";
 export const SORT_BY_NAME = "name";

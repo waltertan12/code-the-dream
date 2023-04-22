@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import HomeButton from "../HomeButton";
-import ClientSidePagination from "./ClientSidePagination";
+// import ClientSidePagination from "./ClientSidePagination";
 import ServerSidePagination from "./ServerSidePagination";
 import InfiniteScroll from "./InfiniteScroll";
+import { UsersList, UsersListWithSorting } from "./DemoClientSidePagination";
+import ArrayManipulation from "./ArrayManipulation";
 const PAGES = {
   NOTES: "Notes",
-  CLIENT_SIDE_PAGINATION: "Client Side Pagination",
+  ARRAY_MANIPULATION: "Array Manipulation",
+  CLIENT_SIDE_PAGINATION: "Simple Client Side Pagination",
+  CLIENT_SIDE_PAGINATION_WITH_SORTING: "Client Side Pagination with Sorting",
+  // CLIENT_SIDE_PAGINATION: "Client Side Pagination",
   SERVER_SIDE_PAGINATION: "Server Side Pagination",
   INFINITE_SCROLL: "Infinite Scroll",
 };
@@ -44,8 +49,10 @@ const App = () => {
           Notes: Lesson 5.1
         </a>
       ) : null}
-      {currentPage === PAGES.CLIENT_SIDE_PAGINATION ? (
-        <ClientSidePagination />
+      {currentPage === PAGES.ARRAY_MANIPULATION ? <ArrayManipulation /> : null}
+      {currentPage === PAGES.CLIENT_SIDE_PAGINATION ? <UsersList /> : null}
+      {currentPage === PAGES.CLIENT_SIDE_PAGINATION_WITH_SORTING ? (
+        <UsersListWithSorting />
       ) : null}
       {currentPage === PAGES.SERVER_SIDE_PAGINATION ? (
         <ServerSidePagination />
