@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import { useTitle } from "./hooks";
 
@@ -36,6 +37,9 @@ const TableOfContents = () => {
         </li>
         <li>
           <Link to="/lesson-4.1">Lesson 4.1</Link>
+        </li>
+        <li>
+          <Link to="/lesson-5.1">Lesson 5.1</Link>
         </li>
       </ul>
     </div>

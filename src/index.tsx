@@ -13,8 +13,11 @@ import Pokefusion from "./pokefusion/App";
 import Review from "./review-1-4-1-7-demo/App";
 import ThreeOne from "./lesson-3-1-demo/App";
 import FourOne from "./lesson-4-1-demo/App";
+import FiveOne from "./lesson-5-1-demo/App";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 const router = createBrowserRouter([
   {
     path: "/",
@@ -63,6 +66,10 @@ const router = createBrowserRouter([
   {
     path: "/lesson-4.1",
     element: <FourOne />,
+  },
+  {
+    path: "/lesson-5.1",
+    element: <FiveOne />,
   },
 ]);
 

@@ -7,7 +7,7 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 });
 
 const listProducts = async (pageSize, cursor) => {
-  const url = new URL("http://localhost:3001/api/products");
+  const url = new URL("http://localhost:3001/api/v1/products");
   url.searchParams.append("limit", pageSize);
   if (cursor !== null) {
     url.searchParams.append("cursor", cursor);

@@ -1,22 +1,24 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import HomeButton from "../HomeButton";
-import AgeCalculator from "./AgeCalculator";
-import NumberGuesser from "./NumberGuesser";
+import ClientSidePagination from "./ClientSidePagination";
+import ServerSidePagination from "./ServerSidePagination";
+import InfiniteScroll from "./InfiniteScroll";
 const PAGES = {
   NOTES: "Notes",
-  AGE_CALCULATOR: "Age Calculator",
-  NUMBER_GUESSER: "Number Guesser",
+  CLIENT_SIDE_PAGINATION: "Client Side Pagination",
+  SERVER_SIDE_PAGINATION: "Server Side Pagination",
+  INFINITE_SCROLL: "Infinite Scroll",
 };
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState(PAGES.NOTES);
   useEffect(() => {
-    document.title = `${currentPage} | Lesson 4.1 Demo`;
+    document.title = `${currentPage} | Lesson 5.1 Demo`;
   }, [currentPage]);
   return (
     <div>
       <HomeButton />
-      <h1>Lesson 4.1: {currentPage}</h1>
+      <h1>Lesson 5.1: {currentPage}</h1>
       <ul className="table-of-contents">
         {Object.values(PAGES).map((page) => (
           <li key={page}>
@@ -39,11 +41,16 @@ const App = () => {
           target="_blank"
           rel="noreferrer"
         >
-          Notes: Lesson 4.1
+          Notes: Lesson 5.1
         </a>
       ) : null}
-      {currentPage === PAGES.AGE_CALCULATOR ? <AgeCalculator /> : null}
-      {currentPage === PAGES.NUMBER_GUESSER ? <NumberGuesser /> : null}
+      {currentPage === PAGES.CLIENT_SIDE_PAGINATION ? (
+        <ClientSidePagination />
+      ) : null}
+      {currentPage === PAGES.SERVER_SIDE_PAGINATION ? (
+        <ServerSidePagination />
+      ) : null}
+      {currentPage === PAGES.INFINITE_SCROLL ? <InfiniteScroll /> : null}
     </div>
   );
 };
