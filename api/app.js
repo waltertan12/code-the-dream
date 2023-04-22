@@ -12,9 +12,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const DEFAULT_LIMIT = 1_000;
+const DEFAULT_LIMIT = 100;
 const DEFAULT_CURSOR = 0;
-const PRODUCT_COUNT = 1_000_000;
+const PRODUCT_COUNT = 100_000;
 const generateProducts = (count = PRODUCT_COUNT) => {
   return new Array(count).fill(null).map(() => ({
     id: uuid.v4(),
@@ -24,15 +24,53 @@ const generateProducts = (count = PRODUCT_COUNT) => {
   }));
 };
 const STATIC_PRODUCTS = generateProducts();
+const sortFunction = (prop, direction) => (left, right) => {
+  if (left[prop] > right[prop]) {
+    return 1 * direction;
+  } else if (left[prop] === right[prop]) {
+    return sortFunction("id")(left, right);
+  } else {
+    return -1 * direction;
+  }
+};
 
-app.get("/api/products", (request, response) => {
-  const delay = Math.floor(Math.random() * 500);
-  console.log({
-    message: "Received list products request",
-    query: request.query,
-    delay,
-  });
-  const products = STATIC_PRODUCTS;
+const sortedProducts = {
+  id: {
+    ASC: STATIC_PRODUCTS.slice().sort(sortFunction("id", 1)),
+    DESC: STATIC_PRODUCTS.slice().sort(sortFunction("id", -1)),
+  },
+  price: {
+    ASC: STATIC_PRODUCTS.slice().sort(sortFunction("price", 1)),
+    DESC: STATIC_PRODUCTS.slice().sort(sortFunction("price", -1)),
+  },
+  name: {
+    ASC: STATIC_PRODUCTS.slice().sort(sortFunction("name", 1)),
+    DESC: STATIC_PRODUCTS.slice().sort(sortFunction("name", -1)),
+  },
+};
+
+const VALID_SORT = {
+  id: "id",
+  name: "name",
+  price: "price",
+};
+
+const VALID_SORT_DIRECTION = {
+  ASC: "ASC",
+  DESC: "DESC",
+  asc: "ASC",
+  desc: "DESC",
+};
+
+app.get("/api/v1/products", (request, response) => {
+  const delay = Math.random() * 500;
+  console.log({ request: request.query });
+  const sort = VALID_SORT[request.query.sort] ?? "id";
+  const sortDirection =
+    VALID_SORT_DIRECTION[request.query.sortDirection] ?? "ASC";
+
+  const products = sortedProducts[sort][sortDirection];
+
   let limit = DEFAULT_LIMIT;
   if (request.query.limit) {
     limit = Number(request.query.limit);
@@ -40,16 +78,21 @@ app.get("/api/products", (request, response) => {
 
   let cursor = DEFAULT_CURSOR;
   if (request.query.cursor) {
-    cursor = Number(request.query.cursor);
+    cursor = Number(atob(request.query.cursor));
   }
 
   let nextCursor = cursor + limit;
   if (nextCursor > products.length) {
     nextCursor = null;
+  } else {
+    nextCursor = btoa(nextCursor);
   }
+
   let prevCursor = cursor - limit;
   if (prevCursor < 0) {
     prevCursor = null;
+  } else {
+    prevCursor = btoa(prevCursor);
   }
 
   setTimeout(() => {
@@ -60,6 +103,40 @@ app.get("/api/products", (request, response) => {
       prevCursor,
     });
   }, delay);
+});
+
+app.get("/api/v1/products", (request, response) => {
+  const products = STATIC_PRODUCTS;
+  let limit = DEFAULT_LIMIT;
+  if (request.query.limit) {
+    limit = Number(request.query.limit);
+  }
+
+  let cursor = DEFAULT_CURSOR;
+  if (request.query.cursor) {
+    cursor = Number(atob(request.query.cursor));
+  }
+
+  let nextCursor = cursor + limit;
+  if (nextCursor > products.length) {
+    nextCursor = null;
+  } else {
+    nextCursor = btoa(nextCursor);
+  }
+
+  let prevCursor = cursor - limit;
+  if (prevCursor < 0) {
+    prevCursor = null;
+  } else {
+    prevCursor = btoa(prevCursor);
+  }
+
+  response.status(200).json({
+    data: products.slice(cursor, cursor + limit),
+    count: products.length,
+    nextCursor,
+    prevCursor,
+  });
 });
 
 const validateCreateUser = (createUserRequest) => {
