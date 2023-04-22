@@ -74,16 +74,16 @@ export const UsersListWithSorting: React.FC<UsersListProps> = ({
   const [sortDirection, setSortDirection] = useState<SortDirection>("ASC");
 
   const handlePreviousClick = () => {
-    // TODO
+    setCursor(cursor - pageSize);
   };
   const handleNextClick = () => {
-    //TODO
+    setCursor(cursor + pageSize);
   };
   const handleSortByChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    // TODO
+    setSortBy(event.target.value as SortBy);
   };
   const handleSortDirectionChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    // TODO
+    setSortDirection(event.target.value as SortDirection);
   };
   const direction = sortDirection === "ASC" ? 1 : -1;
 
@@ -91,9 +91,13 @@ export const UsersListWithSorting: React.FC<UsersListProps> = ({
     <div>
       <ul>
         {users
-          // TODO
-          // sort the users first before paginating
-          // slice creates a new array from indexes cursor to cursor + pageSize
+          .sort((left, right) => {
+            if (left[sortBy] > right[sortBy]) {
+              return 1 * direction;
+            }
+
+            return -1 * direction;
+          })
           .slice(cursor, cursor + pageSize)
           .map((user) => {
             return (
@@ -113,8 +117,15 @@ export const UsersListWithSorting: React.FC<UsersListProps> = ({
         <option value="ASC">Ascending</option>
         <option value="DESC">Descending</option>
       </select>
-      <button onClick={handlePreviousClick}>Previous</button>
-      <button onClick={handleNextClick}>Next</button>
+      <button onClick={handlePreviousClick} disabled={cursor <= 0}>
+        Previous
+      </button>
+      <button
+        onClick={handleNextClick}
+        disabled={cursor + pageSize >= users.length}
+      >
+        Next
+      </button>
     </div>
   );
 };
