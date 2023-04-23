@@ -20,6 +20,7 @@ const App = () => {
   useEffect(() => {
     document.title = `${currentPage} | Lesson 5.1 Demo`;
   }, [currentPage]);
+  const [useLoadMore, setUseLoadMore] = useState(false);
   return (
     <div>
       <HomeButton />
@@ -42,7 +43,7 @@ const App = () => {
       </ul>
       {currentPage === PAGES.NOTES ? (
         <a
-          href="https://capricious-dodo-22e.notion.site/Typescript-75469e4625c34a70b053fb22677f5571"
+          href="https://capricious-dodo-22e.notion.site/2023-04-22-Pagination-4db3e35d0a01465d86c71150a2660cdd"
           target="_blank"
           rel="noreferrer"
         >
@@ -57,7 +58,19 @@ const App = () => {
       {currentPage === PAGES.SERVER_SIDE_PAGINATION ? (
         <ServerSidePagination />
       ) : null}
-      {currentPage === PAGES.INFINITE_SCROLL ? <InfiniteScroll /> : null}
+      {currentPage === PAGES.INFINITE_SCROLL ? (
+        <>
+          <label>
+            Use Load More?
+            <input
+              type="checkbox"
+              checked={useLoadMore}
+              onChange={() => setUseLoadMore((checked) => !checked)}
+            ></input>
+          </label>
+          <InfiniteScroll useLoadMore={useLoadMore} />
+        </>
+      ) : null}
     </div>
   );
 };

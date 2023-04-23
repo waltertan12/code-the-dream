@@ -13,15 +13,20 @@ import ProductRow from "./ProductRow";
 import { CursorPagination } from "./ProductPagination";
 
 const ServerSidePagination = () => {
+  // state variables to handle async data fetchign
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error>();
+  // handles pagination
   const [cursor, setCursor] = useState<string | undefined>();
   const [previousCursor, setPreviousCursor] = useState<string | undefined>();
   const [nextCursor, setNextCursor] = useState<string | undefined>();
+  // handles how many records to show in the page
   const [pageSize, setPageSize] = useState<number>(PAGE_SIZES[0]);
+  // Handles sorting
   const [sortBy, setSortBy] = useState<SortBy>(SORT_BY_ID);
   const [sortDirection, setSortDirection] = useState<SortDirection>(ASC);
+
   useEffect(() => {
     let ignore = false;
     setLoading(true);

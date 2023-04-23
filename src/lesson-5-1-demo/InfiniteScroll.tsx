@@ -2,11 +2,17 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { listProducts, Product, ListProductResponse } from "./ProductApi";
 import ProductRow from "./ProductRow";
 
-const InfiniteScroll = () => {
+interface InfiniteScrollProps {
+  useLoadMore: boolean;
+}
+
+const InfiniteScroll: React.FC<InfiniteScrollProps> = ({ useLoadMore }) => {
   const observer = useRef<IntersectionObserver>();
+  // async data fetching variables
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error>();
+  // paging data
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   useEffect(() => {
     let ignore = false;
@@ -37,9 +43,34 @@ const InfiniteScroll = () => {
       ignore = true;
     };
   }, []);
+  const handleLoadMore = async () => {
+    try {
+      setLoading(true);
+      setError(undefined);
+      const response = await listProducts(nextCursor ?? undefined, 5);
+      setProducts((currentProducts) => [
+        ...currentProducts,
+        // Append the latest product data to the products array
+        ...response.data,
+      ]);
+      setNextCursor(response.nextCursor);
+    } catch (error) {
+      console.error({ error });
+      if (error instanceof Error) {
+        setError(error);
+      } else {
+        setError(Error("Unable to load products"));
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
   const lastElementRef = useCallback(
+    // element is the last <ProductRow /> being referenced
     (element: HTMLDivElement) => {
-      //element is the last React element being referenced
+      if (useLoadMore) {
+        return;
+      }
 
       // disconnect observer set on previous last element
       if (observer.current) {
@@ -52,25 +83,9 @@ const InfiniteScroll = () => {
       }
 
       // create a new observer
-      observer.current = new IntersectionObserver((entries) => {
+      observer.current = new IntersectionObserver(async (entries) => {
         if (entries[0].isIntersecting && nextCursor) {
-          console.log("load more");
-          setLoading(true);
-          setError(undefined);
-          listProducts(nextCursor ?? undefined, 5)
-            .then((response: ListProductResponse) => {
-              setProducts((currentProducts) => [
-                ...currentProducts,
-                ...response.data,
-              ]);
-              setNextCursor(response.nextCursor);
-            })
-            .catch((error) => {
-              setError(error);
-            })
-            .finally(() => {
-              setLoading(false);
-            });
+          handleLoadMore();
         }
       });
 
@@ -79,7 +94,7 @@ const InfiniteScroll = () => {
         observer.current.observe(element);
       }
     },
-    [nextCursor]
+    [useLoadMore, nextCursor]
   );
 
   return (
@@ -97,6 +112,7 @@ const InfiniteScroll = () => {
       </ul>
       {loading && <p>Loading...</p>}
       {error && <p>Error 😭</p>}
+      {useLoadMore && <button onClick={handleLoadMore}>Load more</button>}
     </div>
   );
 };
