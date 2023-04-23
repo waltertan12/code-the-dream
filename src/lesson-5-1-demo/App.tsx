@@ -20,6 +20,7 @@ const App = () => {
   useEffect(() => {
     document.title = `${currentPage} | Lesson 5.1 Demo`;
   }, [currentPage]);
+  const [useLoadMore, setUseLoadMore] = useState(false);
   return (
     <div>
       <HomeButton />
@@ -57,7 +58,19 @@ const App = () => {
       {currentPage === PAGES.SERVER_SIDE_PAGINATION ? (
         <ServerSidePagination />
       ) : null}
-      {currentPage === PAGES.INFINITE_SCROLL ? <InfiniteScroll /> : null}
+      {currentPage === PAGES.INFINITE_SCROLL ? (
+        <>
+          <label>
+            Use Load More?
+            <input
+              type="checkbox"
+              checked={useLoadMore}
+              onChange={() => setUseLoadMore((checked) => !checked)}
+            ></input>
+          </label>
+          <InfiniteScroll useLoadMore={useLoadMore} />
+        </>
+      ) : null}
     </div>
   );
 };
